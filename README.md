@@ -1,20 +1,45 @@
-# Debadatta
-Test Repo for day 1
-# Person profile
-_My name is Caran D’Arche. I am a pencil, and I was born in Geneva. A few days after my birth, my family moved to Bangalore, where I went to school and college. I graduated top of my class from the Faber-Castell Architecture University, and interned as draughtsperson at Kohinoor Hardtmuth_.
-# What do I do?
-My professional areas of interest include drawing, sketching, and designing. I specialise in drawing space-rovers and drone-probes.
-At my current company, I was instrumental in implementing a Sharp-and-Clear-Lines policy that reduced smudges by 43% and raised designer satisfaction by more than 78 basis points.
+# Debadatta Dutta – portfolio
 
-**My employment history is as follows**:
+Files: `index.html` (the page) and `vercel.json` (optional security headers for Vercel). The page has no build step and no external files.
 
-1806 - present: Newell Musgrave LLC
+A single-page portfolio (`index.html`) with a left-hand table of contents, light and dark mode, a WhatsApp link, and an "Ask Debadatta" chat bot. It has no build step and no external files.
 
-1781 - 1806: Derwent Cumberland Co
+## Publish on GitHub Pages
 
-1765 - 1781: Staedtler Mars GmbH
+1. Sign in to GitHub and create a new **public** repository.
+   - Name it `<username>.github.io` to get the address `https://<username>.github.io/`.
+   - Any other name works too, and gives `https://<username>.github.io/<repository-name>/`.
+2. Upload `index.html` to the root of the repository.
+3. Open **Settings > Pages**. Under **Build and deployment**, set **Source** to **Deploy from a branch**, choose the `main` branch and the `/ (root)` folder, then select **Save**.
+4. Wait one to two minutes. GitHub shows the live address at the top of the Pages screen.
 
-1757 - 1765: Dixon Ticonderoga Inc
+## Profile picture
 
-# What am I looking for?
-I am looking for a role whereever you can use my special point-and-mark skills to annotate research papers at academic institutions that offer certificate courses in the following areas: mythology, comics, and card games.
+Her photo is embedded in `index.html`, so there is no separate image file to upload. To change it later, send the new picture to Claude and upload the updated `index.html`.
+
+## Update the page later
+
+- Edit or replace `index.html` in the repository and commit. GitHub Pages republishes the site within a minute or two.
+- To change the text, send the changes to Claude and upload the new `index.html`.
+
+## Add the link to the resume
+
+- Use the final address as plain text in the contact line, for example `debadatta.github.io`. Resume scanners read plain text more reliably than hyperlinks.
+- Open the live address on a phone and in a private browser window to check it before you share it.
+
+## Publish on Vercel (public HTTPS address)
+
+Vercel gives the page a free `https://<project-name>.vercel.app` address that works on computers and phones.
+
+**Option A: from GitHub (no command line)**
+1. Put `index.html` and `vercel.json` in the root of a GitHub repository.
+2. Sign in at vercel.com with GitHub, choose **Add New > Project**, and import the repository.
+3. Leave **Framework Preset** as **Other**, leave the build command and output directory empty, and select **Deploy**.
+4. Open the address Vercel shows. To get a cleaner name, rename the project under **Settings > General**.
+
+**Option B: from your computer**
+1. Put `index.html` and `vercel.json` in one folder.
+2. Run `npm install -g vercel`, then `vercel login`.
+3. In that folder, run `vercel --prod`. Vercel prints the public address.
+
+**Check before sharing:** open the address on a phone and in a private browser window, and test the WhatsApp button, the email dialog, and the chat.

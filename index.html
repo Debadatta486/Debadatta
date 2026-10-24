@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--
+  HOW TO USE THIS FILE
+  - Hosting: upload it as index.html to a GitHub Pages repository (see README.md).
+  - Photo: the profile picture is embedded in this file, so no separate image file is needed.
+  - Everything else is plain HTML, CSS and JavaScript, with no build step and no external files.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1626" media="(prefers-color-scheme: dark)">
+<title>Debadatta Dutta – Senior Lead Technical Writer | Documentation Engineering</title>
+<meta name="description" content="Debadatta Dutta, Senior Lead Technical Writer with 10+ years of experience in documentation engineering: user guides, developer and API documentation, integration guides, and release notes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Debadatta Dutta – Senior Lead Technical Writer | Documentation Engineering">
+<meta property="og:description" content="10+ years writing user guides, developer and API documentation, integration guides, and release notes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%8D%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f5f7fa;--surface:#fff;--ink:#14213d;--muted:#52607a;--line:#d9e0ea;--accent:#2b59d6;--accent-ink:#fff;--tint:#e8eefc;--wa:#128c4a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1626;--surface:#162038;--ink:#e7ecf6;--muted:#9aa8c2;--line:#26324f;--accent:#7aa2ff;--accent-ink:#0f1626;--tint:#1c2a4d;--wa:#25b865}}
+:root[data-theme="dark"]{--bg:#0f1626;--surface:#162038;--ink:#e7ecf6;--muted:#9aa8c2;--line:#26324f;--accent:#7aa2ff;--accent-ink:#0f1626;--tint:#1c2a4d;--wa:#25b865}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;color-scheme:light dark;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-family:"Iowan Old Style",Palatino,Georgia,serif;line-height:1.2;margin:0}
+a{color:var(--accent)}
+.side{position:fixed;top:0;bottom:0;left:0;width:264px;padding:calc(env(safe-area-inset-top,0px) + 28px) 22px 24px;background:var(--surface);border-right:1px solid var(--line);overflow-y:auto}
+.brand{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:1.35rem;font-weight:700}
+.role{color:var(--muted);font-size:.9rem;margin:2px 0 26px}
+.side ul{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--line)}
+.side li{margin:0}
+.side a{display:block;padding:7px 12px;margin-left:-16px;border-left:2px solid transparent;color:var(--muted);text-decoration:none;font-size:.95rem}
+.side a:hover{color:var(--ink)}
+.side a[aria-current="true"]{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{margin-left:264px;padding:32px 48px 120px}
+section{max-width:860px;padding:28px;margin:0 auto 20px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+h2{font-size:1.7rem;margin-bottom:18px}
+h3{font-size:1.1rem}
+p{margin:0 0 14px;max-width:70ch}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);letter-spacing:-.01em}
+.hero .lede{font-size:1.2rem;color:var(--muted);margin:14px 0 22px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid var(--accent);color:var(--accent)}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.note{margin:24px 0 0;padding:14px 16px;background:var(--tint);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;max-width:70ch}
+.job{padding:0 0 22px 20px;border-left:2px solid var(--line);position:relative;margin-bottom:6px}
+.job::before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.job .when{color:var(--muted);font-size:.9rem}
+.job ul{margin:8px 0 0;padding-left:20px}
+.job li{margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card p{margin:6px 0 0;color:var(--muted);font-size:.93rem}
+.tile{display:block;color:inherit;text-decoration:none}
+.tile:hover{border-color:var(--accent)}
+.tile h3{color:var(--accent)}
+.tile h3::after{content:" \2197"}
+.group{margin-bottom:16px}
+.group h3{margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:var(--tint);border-radius:999px;padding:4px 12px;font-size:.88rem}
+ol.steps{margin:0;padding-left:22px;max-width:70ch}
+ol.steps li{margin-bottom:10px}
+.creds{margin:0;padding-left:20px}
+.creds li{margin-bottom:6px}
+.fab{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--wa);color:#fff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+@media (max-width:860px){
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:30}
+.side{position:sticky;top:env(safe-area-inset-top,0px);width:auto;bottom:auto;padding:10px 14px;border-right:0;border-bottom:1px solid var(--line);z-index:25}
+.role{display:none}
+.brand{font-size:1.05rem;margin-bottom:6px}
+.side ul{display:flex;overflow-x:auto;border-left:0;padding:0;gap:4px}
+.side a{margin:0;padding:6px 12px;border-left:0;border-bottom:2px solid transparent;white-space:nowrap}
+.side a[aria-current="true"]{border-bottom-color:var(--accent)}
+main{margin-left:0;padding:24px 20px 110px}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
+}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.theme{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:50%;width:38px;height:38px;padding:0;display:grid;place-items:center;cursor:pointer;flex:none}
+.theme svg{width:20px;height:20px}
+.herorow{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.avatar{width:128px;height:128px;border-radius:50%;background:var(--tint);border:2px solid var(--line);flex:none;display:grid;place-items:center;color:var(--muted);font-size:.8rem;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.botbtn{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.botpanel{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:40;width:min(380px,calc(100vw - 24px));max-height:min(540px,calc(100vh - 100px - env(safe-area-inset-top,0px)));max-height:min(540px,calc(100dvh - 100px - env(safe-area-inset-top,0px)));display:flex;flex-direction:column;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.3);overflow:hidden}
+.botpanel[hidden]{display:none}
+.bothead{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+.bothead button{background:none;border:0;color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer}
+.botlog{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:.93rem;line-height:1.5}
+.msg.ba{background:var(--tint);align-self:flex-start}
+.msg.qa{background:var(--accent);color:var(--accent-ink);align-self:flex-end}
+.ml{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.botsug{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}
+.botsug button{cursor:pointer;font:inherit;font-size:.82rem;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.botrow{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
+.botrow input{flex:1;min-width:0;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.botrow button{cursor:pointer;font:inherit;font-weight:600;padding:9px 14px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink)}
+@media (min-width:861px) and (max-width:1100px){main{padding:28px 28px 120px}}
+@media (max-width:860px){
+section{padding:20px 18px;border-radius:14px;margin-bottom:14px}
+h2{font-size:1.45rem}
+main{padding-bottom:90px}
+.side ul{position:relative;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.side ul::-webkit-scrollbar{display:none}
+.side a{padding:10px 12px}
+.theme{width:44px;height:44px}
+.herorow{gap:16px}
+.avatar{width:96px;height:96px}
+.btn{flex:1 1 auto;justify-content:center;min-height:44px}
+.botbtn,.fab{padding:11px 16px}
+.botpanel{left:12px;right:12px;width:auto}
+.botsug{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.botsug::-webkit-scrollbar{display:none}
+.botsug button{white-space:nowrap;flex:none}
+}
+button.btn{background:transparent;font:inherit;cursor:pointer}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:22px;width:min(420px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+dialog h3{font-size:1.3rem;margin-bottom:6px}
+.mailopts{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.mailopts .btn,dialog>.btn{justify-content:center;min-height:44px}
+#mailmsg{min-height:1.4em;margin:0 0 10px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<aside class="side">
+  <div class="top"><div class="brand">Debadatta Dutta</div><button class="theme" id="theme" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><span id="ticon" aria-hidden="true"></span></button></div>
+  <div class="role">Senior Lead Technical Writer<br>Documentation Engineering</div>
+  <nav aria-label="Sections"><ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#documents">My Work</a></li>
+    <li><a href="#samples">Sample documents</a></li>
+    <li><a href="#quality">Quality and operations</a></li>
+    <li><a href="#skills">Skills and tools</a></li>
+    <li><a href="#domains">Domains</a></li>
+    <li><a href="#process">Workflow</a></li>
+    <li><a href="#credentials">Certifications and education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul></nav>
+</aside>
+
+<main>
+<section id="about" class="hero">
+  <div class="herorow"><div class="avatar"><img src="data:image/jpeg;base64,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" alt="Debadatta Dutta" width="128" height="128"></div><h1>Debadatta Dutta</h1></div>
+  <p class="lede">Senior Lead Technical Writer with 10+ years of experience in documentation engineering, writing user guides, developer and API documentation, integration guides, and release notes for software and aerospace products.</p>
+  <div class="btns"><a class="btn" href="#contact">Get in touch</a></div>
+  <p class="note">I am a quality champion. I write for the people who use the product, work with SMEs, Product Managers, developers, and QA to get the facts right, trace documentation defects to their root cause, and keep content consistent through style standards and pull request reviews. Based in Hyderabad, India.</p>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+  <div class="job"><h3>Senior Lead Technical Writer, Kore.ai India Pvt. Ltd.</h3><div class="when">January 2024 – Present</div>
+    <ul><li>Create and update user guides, developer documentation (APIs and OpenAPI specifications), integration guides, and release notes for the Artemis platform.</li>
+    <li>Gather information from functional specifications, hands-on use of the software, and interviews with Product Managers.</li>
+    <li>Manage documentation releases against the release cycle and review pull requests for accuracy, consistency, and style.</li>
+    <li>Read the published documentation at <a href="https://docs.kore.ai" target="_blank" rel="noopener">docs.kore.ai</a>.</li></ul></div>
+  <div class="job"><h3>Lead Technical Writer, Sureify Labs</h3><div class="when">December 2020 – December 2023</div>
+    <ul><li>Created and revised user guides, developer guides (API), and release notes for LifetimeACQUIRE, LifetimeSERVICE, and LifetimeENGAGE.</li>
+    <li>Worked with SMEs across departments to deliver accurate documentation in a deadline-driven environment.</li>
+    <li>Managed the sprint cycle of the technical writing team.</li></ul></div>
+  <div class="job"><h3>Senior Technical Writer, Tech Mahindra – Allyis Pvt. Ltd.</h3><div class="when">July 2020 – December 2020</div>
+    <ul><li>Wrote and revised technical documentation for Microsoft Bing.</li>
+    <li>Worked with counterparts in other geographies and with SMEs to support their documentation needs.</li></ul></div>
+  <div class="job"><h3>Senior Technical Writer, Umlaut Pvt. Ltd. (part of Accenture)</h3><div class="when">October 2015 – June 2020</div>
+    <ul><li>Created user guides, installation guides, and release notes for project management and data migration software.</li>
+    <li>Collaborated with SMEs and global, cross-functional teams to gather information from specifications, hands-on use, and product managers.</li></ul></div>
+  <div class="job"><h3>Technical Writer, Capgemini India Pvt. Ltd.</h3><div class="when">February 2013 – October 2015</div>
+    <ul><li>Created getting started, installation, FAQ, and upgrade guides with local developer and QA teams.</li>
+    <li>Defined the project process guide and trained new joiners.</li></ul></div>
+  <div class="job"><h3>Consultant, Capgemini India Pvt. Ltd.</h3><div class="when">February 2011 – January 2013</div>
+    <ul><li>Authored and quality-reviewed Aircraft Illustrated Parts Catalog (AIPC) and Structural Repair Identification (SRMi) manuals to ATA 100, iSpec 2200, and S1000D.</li>
+    <li>Ran root cause analysis on the manuals.</li></ul></div>
+</section>
+
+<section id="documents">
+  <h2>My Work</h2>
+  <div class="grid">
+    <div class="card"><h3>User guides</h3><p>Task-based guides written for the audience's level of understanding.</p></div>
+    <div class="card"><h3>Developer and API documentation</h3><p>REST API reference and guides built on OpenAPI specifications, tested with Postman and published from SwaggerHub.</p></div>
+    <div class="card"><h3>Release notes</h3><p>Clear summaries of what changed in each release.</p></div>
+    <div class="card"><h3>Installation and upgrade guides</h3><p>Getting started, installation, and upgrade procedures.</p></div>
+    <div class="card"><h3>Integration guides</h3><p>Step-by-step guides for connecting the product with other systems and services.</p></div>
+    <div class="card"><h3>FAQs and how-to guides</h3><p>Short answers for common questions and tasks.</p></div>
+    <div class="card"><h3>Aircraft technical publications</h3><p>Illustrated parts catalogs and structural repair manuals.</p></div>
+  </div>
+  </section>
+
+<section id="samples">
+  <h2>Sample documents</h2>
+  <div class="grid">
+    <a class="card tile" href="https://docs.kore.ai" target="_blank" rel="noopener"><h3>Kore.ai documentation</h3><p>The product documentation I work on for the Artemis platform. docs.kore.ai</p></a>
+    <a class="card tile" href="https://debadatta-s-docs.thally.app/" target="_blank" rel="noopener"><h3>API documentation site</h3><p>A sample documentation site for the public JSONPlaceholder REST API, organized around the tasks readers need most.</p></a>
+    <a class="card tile" href="https://debadatta-s-docs.thally.app/quickstart" target="_blank" rel="noopener"><h3>Quickstart</h3><p>Send a first GET request in Postman or curl and verify the JSON response.</p></a>
+    <a class="card tile" href="https://debadatta-s-docs.thally.app/guides/validate-response" target="_blank" rel="noopener"><h3>Guide: validate an API response</h3><p>Add Postman tests that check the status code and response fields, with troubleshooting tables.</p></a>
+  </div>
+</section>
+
+<section id="quality">
+  <h2>Quality and content operations</h2>
+  <div class="grid">
+    <div class="card"><h3>Quality and governance</h3><p>MSTP and STE-100 style standards, quality reviews, and pull request reviews for accuracy and consistency.</p></div>
+    <div class="card"><h3>Root cause analysis</h3><p>Tracing documentation defects and feedback back to their cause, then fixing the content and the process.</p></div>
+    <div class="card"><h3>Process and sprint management</h3><p>Managed the writing team's sprint cycle and defined project process guides.</p></div>
+    <div class="card"><h3>Mentoring and onboarding</h3><p>Trained new joiners and shared process knowledge across the team.</p></div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills and tools</h2>
+  <div class="group"><h3>Documentation engineering</h3><div class="chips"><span>Docs-as-code</span><span>Git workflows</span><span>GitHub pull requests</span><span>OpenAPI and YAML</span><span>Postman API testing</span><span>DITA structured content</span></div></div>
+  <div class="group"><h3>Authoring</h3><div class="chips"><span>Confluence</span><span>Document360</span><span>Arbortext Epic Editor</span><span>Adobe FrameMaker</span><span>MadCap Flare</span><span>Adobe RoboHelp</span><span>Portico</span><span>WordPress</span><span>Adobe Captivate</span><span>Snagit</span></div></div>
+  <div class="group"><h3>Standards and content systems</h3><div class="chips"><span>DITA</span><span>MSTP</span><span>STE-100</span><span>ATA 100</span><span>iSpec 2200</span><span>S1000D</span><span>SGML</span><span>XML</span><span>CSDB</span></div></div>
+  <div class="group"><h3>API documentation</h3><div class="chips"><span>OpenAPI</span><span>Postman</span><span>SwaggerHub</span><span>REST</span><span>JSON</span><span>YAML</span></div></div>
+  <div class="group"><h3>Process and tracking</h3><div class="chips"><span>DDLC</span><span>SDLC</span><span>Agile</span><span>JIRA</span><span>UCM-T</span><span>GitHub</span></div></div>
+  <div class="group"><h3>Graphics and Office</h3><div class="chips"><span>MS Visio</span><span>MS Word</span><span>MS Excel</span><span>MS PowerPoint</span></div></div>
+</section>
+
+<section id="domains">
+  <h2>Domains</h2>
+  <div class="grid">
+    <div class="card"><h3>AI contact center software</h3><p>Kore.ai Artemis platform.</p></div>
+    <div class="card"><h3>Enterprise software</h3><p>Project management and data migration applications.</p></div>
+    <div class="card"><h3>Search and advertising</h3><p>Microsoft Bing documentation.</p></div>
+    <div class="card"><h3>Aerospace</h3><p>Aircraft parts catalogs and repair manuals, plus AS9100D internal auditing.</p></div>
+  </div>
+</section>
+
+<section id="process">
+  <h2>Audience-first, docs-as-code workflow</h2>
+  <ol class="steps">
+    <li>Start with the user's task: define the audience and the job they need to get done, then write short, task-based topics.</li>
+    <li>Work in step with the sprint: gather facts early from specifications, JIRA tickets, hands-on testing, and SME interviews, so documentation ships with the feature.</li>
+    <li>Write in plain language to a style standard (MSTP, STE-100) and structure reusable content with DITA.</li>
+    <li>Treat docs as code: keep content in GitHub and review every change through pull requests.</li>
+    <li>Verify with SMEs, developers, and QA, and check API documentation in Postman.</li>
+    <li>Publish with each release, trace defects and feedback to their root cause, then fix the content and the process.</li>
+  </ol>
+</section>
+
+<section id="credentials">
+  <h2>Certifications and education</h2>
+  <ul class="creds">
+    <li>Certified Internal Auditor, AS9100D standards</li>
+    <li>API Documentation Fundamentals: API concepts, JSON, YAML, Postman, REST API documentation</li>
+    <li>Microsoft Advertising Certified Professional</li>
+    <li>Master of Business Administration (MBA), Operations Management, NMIMS</li>
+    <li>BSc AME, Singhania University</li>
+    <li>Aircraft Maintenance Engineering, Utkal Aerospace and Engineering, Bhubaneswar</li>
+    <li>Diploma in Electrical Engineering, UGIE, Rourkela</li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Message me on WhatsApp or write to me by email.</p>
+  <div class="btns">
+    <a class="btn wa" href="https://wa.me/919590621509?text=Hi%20Debadatta%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener">Chat on WhatsApp</a>
+    <button class="btn mailbtn" type="button">Connect over email</button>
+  </div>
+  <p style="margin-top:16px;color:var(--muted)">Hyderabad, India</p>
+</section>
+</main>
+
+<button class="botbtn" id="botbtn" type="button" aria-expanded="false" aria-controls="bot">Ask Debadatta</button>
+<div class="botpanel" id="bot" role="dialog" aria-label="Ask Debadatta" hidden>
+  <div class="bothead"><strong>Ask Debadatta</strong><button type="button" id="botx" aria-label="Close">&times;</button></div>
+  <div class="botlog" id="botlog" role="log" aria-live="polite"></div>
+  <div class="botsug" id="botsug"></div>
+  <div class="botrow"><input id="botq" type="text" placeholder="Ask about my experience, tools, education" aria-label="Your question"><button id="botgo" type="button">Send</button></div>
+</div>
+
+<dialog id="maildlg" aria-labelledby="mailt">
+  <h3 id="mailt">Email Debadatta</h3>
+  <p>Choose how you want to write.</p>
+  <div class="mailopts">
+    <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=debadatta.ghosh46%40gmail.com&su=Hello%20Debadatta" target="_blank" rel="noopener">Open in Gmail</a>
+    <a class="btn" href="https://outlook.live.com/mail/0/deeplink/compose?to=debadatta.ghosh46%40gmail.com&subject=Hello%20Debadatta" target="_blank" rel="noopener">Open in Outlook</a>
+    <a class="btn" href="mailto:debadatta.ghosh46@gmail.com?subject=Hello%20Debadatta" target="_blank" rel="noopener">Open in my email app</a>
+    <button class="btn" type="button" id="mailcopy">Copy email address</button>
+  </div>
+  <p id="mailmsg" aria-live="polite"></p>
+  <button class="btn" type="button" id="mailclose">Close</button>
+</dialog>
+
+
+<script>
+(function(){
+  var links=document.querySelectorAll('.side a');
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.removeAttribute('aria-current');});
+        var a=map[e.target.id];
+        if(a){a.setAttribute('aria-current','true');
+          var ul=a.closest('ul');if(window.innerWidth<=860&&ul){ul.scrollTo({left:a.offsetLeft-(ul.clientWidth-a.offsetWidth)/2,behavior:'smooth'});}}
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('main section').forEach(function(s){obs.observe(s);});
+  window.addEventListener('scroll',function(){if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-6){var a=map['contact'];if(a){links.forEach(function(x){x.removeAttribute('aria-current');});a.setAttribute('aria-current','true');}}},{passive:true});
+})();
+</script>
+<script>
+(function(){
+ var root=document.documentElement,tb=document.getElementById('theme');
+ function cur(){return root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+ var SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+ function lab(){var d=cur()==='dark';document.getElementById('ticon').innerHTML=d?SUN:MOON;var t=d?'Switch to light mode':'Switch to dark mode';tb.setAttribute('aria-label',t);tb.title=t;}
+ tb.addEventListener('click',function(){root.setAttribute('data-theme',cur()==='dark'?'light':'dark');lab();});
+ lab();
+ var LINKS={c:[{t:'Go to contact options',h:'#contact'}],d:[{t:'Kore.ai documentation',h:'https://docs.kore.ai'},{t:'API documentation site',h:'https://debadatta-s-docs.thally.app/'},{t:'Quickstart',h:'https://debadatta-s-docs.thally.app/quickstart'},{t:'Validate an API response',h:'https://debadatta-s-docs.thally.app/guides/validate-response'}]};
+ var KB=[{"k": ["documentation engineering", "docs engineering", "documentation engineer", "doc engineering"], "a": "Documentation engineering is how I work. Content lives in GitHub and every change goes through a pull request, API documentation is built on OpenAPI and YAML and tested in Postman, and structured content is written in DITA, so documentation is reviewed, verified, and released like a product."}, {"k": ["yourself", "introduce", "intro", "summary", "profile", "background", "overview", "who are you"], "w": ["who", "about"], "a": "I'm Debadatta Dutta, a Senior Lead Technical Writer based in Hyderabad with 10+ years of experience. I write user guides, installation and upgrade guides, developer and API documentation, integration guides, FAQs, how-to guides, and release notes for software and aerospace products. I'm a quality champion: I focus on accurate, consistent content that meets release deadlines."}, {"k": ["kore", "artemis", "current", "currently", "now", "present", "today", "latest", "where do you work"], "w": ["work", "working", "employer", "company", "role"], "a": "I'm a Senior Lead Technical Writer at Kore.ai (since January 2024) on the Artemis platform. I create and update user guides, developer documentation (APIs and OpenAPI specifications), integration guides, and release notes. I gather information from functional specifications, hands-on use of the software, and Product Managers, manage documentation releases against the release cycle, and review pull requests for accuracy, consistency, and style.", "l": "d"}, {"k": ["sureify", "lifetimeacquire", "lifetimeservice", "lifetimeengage", "lifetime"], "a": "At Sureify Labs (December 2020 to December 2023) I was a Lead Technical Writer. I created and revised user guides, developer guides (API), and release notes for LifetimeACQUIRE, LifetimeSERVICE, and LifetimeENGAGE, worked with SMEs across departments in a deadline-driven environment, and managed the sprint cycle of the writing team."}, {"k": ["mahindra", "allyis", "bing", "tech mahindra", "microsoft bing"], "a": "At Tech Mahindra – Allyis (July to December 2020) I was a Senior Technical Writer on Microsoft Bing documentation. I worked with counterparts in other geographies and with SMEs, and wrote, edited, and proofread content for different audiences."}, {"k": ["umlaut", "accenture"], "a": "At Umlaut, part of Accenture (October 2015 to June 2020), I was a Senior Technical Writer. I created user guides, installation guides, and release notes for project management and data migration software, working with SMEs and global cross-functional teams, and gathering information from specifications, hands-on use of the software, and product managers."}, {"k": ["capgemini", "consultant", "aircraft", "aerospace", "aviation", "aipc", "srmi", "s1000d", "ispec", "parts", "catalog", "catalogs", "catalogue", "repair", "manuals", "ata 100"], "a": "At Capgemini I worked first as a Consultant (February 2011 to January 2013), authoring and quality-reviewing aircraft illustrated parts catalogs (AIPC) and structural repair identification manuals (SRMi) to ATA 100, iSpec 2200, and S1000D, and running root cause analysis on them. As a Technical Writer (February 2013 to October 2015) I created getting started, installation, FAQ, and upgrade guides with developer and QA teams, defined the project process guide, and trained new joiners."}, {"k": ["years", "year", "how long", "yoe"], "a": "I have 10+ years of technical writing experience across SaaS and software, search and advertising, and aerospace. Ask me about any role: Kore.ai, Sureify Labs, Tech Mahindra – Allyis, Umlaut, or Capgemini."}, {"k": ["career", "history", "companies", "company", "employers", "employer", "roles", "jobs", "timeline", "worked", "organizations", "organisations", "previous", "past", "earlier"], "a": "My career: Senior Lead Technical Writer at Kore.ai (January 2024 to present), Lead Technical Writer at Sureify Labs (December 2020 to December 2023), Senior Technical Writer at Tech Mahindra – Allyis (July to December 2020), Senior Technical Writer at Umlaut, part of Accenture (October 2015 to June 2020), and Technical Writer then Consultant at Capgemini (February 2011 to October 2015). Ask me about any of them."}, {"w": ["write", "writing", "create", "document", "documents", "documentation", "guide", "guides", "user", "release", "notes", "faq", "faqs", "installation", "upgrade", "content", "types", "howto"], "k": ["deliverables", "deliverable"], "a": "I write user guides, installation and upgrade guides, developer and API documentation (OpenAPI), integration guides, FAQs, how-to guides, and release notes, plus aircraft illustrated parts catalogs and structural repair manuals from my aerospace work. I tailor each one to its audience's level of understanding."}, {"k": ["api", "apis", "openapi", "swagger", "swaggerhub", "postman", "rest", "json", "yaml", "developer", "developers", "sdk", "endpoint", "endpoints"], "a": "Yes. I write developer and API documentation: REST API reference and guides built on OpenAPI specifications, tested with Postman and published from SwaggerHub. I've done this at Kore.ai and Sureify Labs, and I completed API Documentation Fundamentals (API concepts, JSON, YAML, Postman, and REST API documentation)."}, {"k": ["integration", "integrations", "integrate"], "a": "I write integration guides: step-by-step guides for connecting the product with other systems and services. I create them alongside user guides, developer documentation, and release notes for the Artemis platform at Kore.ai."}, {"k": ["tool", "tools", "software", "framemaker", "flare", "madcap", "robohelp", "confluence", "document360", "arbortext", "portico", "wordpress", "captivate", "snagit", "visio", "jira", "github", "authoring", "editor"], "a": "Authoring tools: Confluence, Document360, Arbortext Epic Editor, Adobe FrameMaker, MadCap Flare, Adobe RoboHelp, Portico, WordPress, Adobe Captivate, and Snagit. For API work I use Postman and SwaggerHub with OpenAPI. I track work in JIRA and UCM-T, keep content in GitHub, and use MS Visio for graphics and the MS Office suite."}, {"k": ["dita", "mstp", "ste", "ste 100", "style", "standard", "standards", "xml", "sgml", "csdb", "microsoft style"], "a": "I work to MSTP and STE-100 style standards and author structured, reusable content in DITA, with SGML, XML, and CSDB experience from aerospace publications. Aircraft manuals follow ATA 100, iSpec 2200, and S1000D."}, {"k": ["process", "workflow", "approach", "method", "methodology", "agile", "sprint", "sprints", "ddlc", "sdlc", "how do you work", "docs as code", "audience"], "a": "My workflow is audience-first and docs-as-code. I start with the user's task and write short, task-based topics, gather facts early from specifications, JIRA tickets, hands-on testing, and SME interviews so documentation ships with the feature, write to a style standard, keep content in GitHub with every change reviewed through pull requests, verify with SMEs, developers, and QA, and trace defects and feedback to their root cause. I work in Agile sprints and follow DDLC and SDLC."}, {"k": ["quality", "rca", "root", "cause", "governance", "review", "reviews", "pull", "pr", "prs", "consistency", "accuracy", "champion", "editorial"], "a": "I'm a quality champion. I apply style standards and review pull requests for accuracy and consistency, run root cause analysis on documentation defects and feedback, and fix both the content and the process behind them. I did this on aircraft parts catalogs and repair manuals at Capgemini, and I review pull requests today at Kore.ai."}, {"k": ["team", "mentor", "mentoring", "train", "training", "trained", "onboard", "onboarding", "manage", "managed", "lead", "leadership", "people"], "a": "At Sureify Labs I managed the writing team's sprint cycle. At Capgemini I trained new joiners and defined the project process guide. At Kore.ai I'm a Senior Lead Technical Writer working with Product Managers, developers, and QA."}, {"k": ["education", "degree", "degrees", "mba", "nmims", "bsc", "diploma", "college", "university", "qualification", "qualifications", "studied", "study", "studying", "school", "engineering"], "a": "I have an MBA in Operations Management (NMIMS), a BSc AME (Singhania University), Aircraft Maintenance Engineering (Utkal Aerospace and Engineering, Bhubaneswar), and a Diploma in Electrical Engineering (UGIE, Rourkela)."}, {"k": ["certification", "certifications", "certified", "certificate", "certificates", "as9100d", "auditor", "audit", "advertising"], "a": "I'm a certified internal auditor for AS9100D standards, completed API Documentation Fundamentals (API concepts, JSON, YAML, Postman, and REST API documentation), and am a Microsoft Advertising Certified Professional."}, {"k": ["skill", "skills", "strength", "strengths", "expertise", "specialize", "specialise", "specialty"], "a": "My core skills are user guides and installation manuals, developer and API documentation (OpenAPI), integration guides, release notes, audience analysis, content quality and governance, root cause analysis, docs-as-code with GitHub and pull request reviews, DITA and XML authoring, and working with SMEs, developers, and QA."}, {"k": ["domain", "domains", "industry", "industries", "sector", "saas"], "a": "I've written for AI contact center software (the Artemis platform at Kore.ai), enterprise software such as project management and data migration applications, search and advertising (Microsoft Bing), and aerospace (aircraft parts catalogs and repair manuals), plus AS9100D internal auditing."}, {"k": ["contact", "email", "mail", "phone", "call", "whatsapp", "number", "reach", "hire", "hiring", "message", "connect", "opportunity", "opportunities", "talk", "available"], "a": "You can reach me on WhatsApp or by email from the Contact section.", "l": "c"}, {"k": ["location", "located", "based", "hyderabad", "city", "relocate", "relocation", "remote"], "w": ["where"], "a": "I'm based in Hyderabad, India. For relocation or working arrangements, use the options in the Contact section.", "l": "c"}, {"k": ["docs", "quickstart", "jsonplaceholder", "sample", "samples", "portfolio", "published", "publicly", "examples", "example", "link", "links"], "a": "The Kore.ai documentation I work on is published at docs.kore.ai. My own samples are an API documentation site for the JSONPlaceholder REST API, a quickstart, and a guide on validating API responses with Postman.", "l": "d"}, {"k": ["hi", "hello", "hey", "namaste"], "a": "Hi, I'm Debadatta. Ask me about my experience, tools, documents, or education."}, {"k": ["thanks", "thank", "thx"], "a": "You're welcome. Use the Contact section if you'd like to connect.", "l": "c"}];
+ var FALLBACK={"a": "I don't have that in my resume. You can ask me about my roles, tools, documents, API and integration guides, skills, education, or certifications, or reach me directly.", "l": "c"};
+ var CHIPS=["Tell me about yourself", "What do you do at Kore.ai?", "Which tools do you use?", "Do you write API docs?", "How can I contact you?"];
+ function norm(x){return ' '+x.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()+' ';}
+ function stem(w){return w.length>4?w.replace(/(ies|ing|es|ed|s)$/,''):w;}
+ function answer(q){
+  var n=norm(q),toks=n.trim().split(' ').map(stem),best=null,bs=0;
+  KB.forEach(function(e){
+   var s=0;
+   (e.k||[]).forEach(function(k){var nk=norm(k);
+    if(nk.trim().indexOf(' ')>-1){if(n.indexOf(nk)>-1)s+=4;}
+    else if(toks.indexOf(stem(nk.trim()))>-1)s+=3;});
+   (e.w||[]).forEach(function(k){if(toks.indexOf(stem(k))>-1)s+=1;});
+   if(s>bs){bs=s;best=e;}
+  });
+  return bs>=2?best:FALLBACK;
+ }
+ var btn=document.getElementById('botbtn'),panel=document.getElementById('bot'),log=document.getElementById('botlog'),inp=document.getElementById('botq'),sug=document.getElementById('botsug');
+ function add(cls,txt,links){
+  var d=document.createElement('div');d.className='msg '+cls;d.textContent=txt;
+  if(links){var w=document.createElement('div');w.className='ml';LINKS[links].forEach(function(x){var a=document.createElement('a');a.href=x.h;a.textContent=x.t;if(x.h.charAt(0)==='#'){a.addEventListener('click',function(){setOpen(false);});}else{a.target='_blank';a.rel='noopener';}w.appendChild(a);});d.appendChild(w);}
+  log.appendChild(d);log.scrollTop=log.scrollHeight;
+ }
+ function send(t){t=(t||'').trim();if(!t)return;add('qa',t);var r=answer(t);add('ba',r.a,r.l);inp.value='';}
+ CHIPS.forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c;b.addEventListener('click',function(){send(c);});sug.appendChild(b);});
+ add('ba',"Hi, I'm Debadatta. Ask me about my experience, tools, documents, or education.");
+ function setOpen(o){panel.hidden=!o;btn.setAttribute('aria-expanded',o?'true':'false');if(o)inp.focus();}
+ btn.addEventListener('click',function(){setOpen(panel.hidden);});
+ document.getElementById('botx').addEventListener('click',function(){setOpen(false);btn.focus();});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden){setOpen(false);btn.focus();}});
+ document.getElementById('botgo').addEventListener('click',function(){send(inp.value);});
+ inp.addEventListener('keydown',function(e){if(e.key==='Enter')send(inp.value);});
+
+ var dlg=document.getElementById('maildlg'),mm=document.getElementById('mailmsg'),addr='debadatta.ghosh46@gmail.com';
+ document.querySelectorAll('.mailbtn').forEach(function(b){b.addEventListener('click',function(){mm.textContent='';if(dlg.showModal){dlg.showModal();}else{window.open('mailto:'+addr+'?subject=Hello%20Debadatta','_blank');}});});
+ document.getElementById('mailclose').addEventListener('click',function(){dlg.close();});
+ dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+ function showAddr(){mm.textContent='Copy this address: ';var sp=document.createElement('span');sp.textContent=addr;mm.appendChild(sp);var r=document.createRange();r.selectNodeContents(sp);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);}
+ document.getElementById('mailcopy').addEventListener('click',function(){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(addr).then(function(){mm.textContent='Email address copied.';},showAddr);}else{showAddr();}
+ });
+})();
+</script>
+</body>
+</html>
