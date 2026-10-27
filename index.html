@@ -3,7 +3,7 @@
   HOW TO USE THIS FILE
   - Hosting: upload it as index.html to a GitHub Pages repository (see README.md).
   - Photo: the profile picture is embedded in this file, so no separate image file is needed.
-  - Everything else is plain HTML, CSS and JavaScript, with no build step and no external files.
+  - Everything else is plain HTML, CSS, and JavaScript, with no build step and no external files.
 -->
 <html lang="en">
 <head>
@@ -211,7 +211,7 @@ dialog h3{font-size:1.3rem;margin-bottom:6px}
 <section id="quality">
   <h2>Quality and content operations</h2>
   <div class="grid">
-    <div class="card"><h3>Quality and governance</h3><p>MSTP style standard, quality reviews, and pull request reviews for accuracy and consistency.</p></div>
+    <div class="card"><h3>Quality and governance</h3><p>MSTP and STE-100 style standards, quality reviews, and pull request reviews for accuracy and consistency.</p></div>
     <div class="card"><h3>Root cause analysis</h3><p>Tracing documentation defects and feedback back to their cause, then fixing the content and the process.</p></div>
     <div class="card"><h3>Release and delivery management</h3><p>Plan documentation around rolling releases, balance competing feature updates, and keep published content aligned with product behavior.</p></div>
     <div class="card"><h3>AI-assisted workflows</h3><p>Use prompt templates for drafting, restructuring, terminology checks, and legacy-content conversion, with human review for accuracy, tone, hallucinations, and security.</p></div>
@@ -357,8 +357,12 @@ dialog h3{font-size:1.3rem;margin-bottom:6px}
  }
  function send(t){t=(t||'').trim();if(!t)return;add('qa',t);var r=answer(t);add('ba',r.a,r.l);inp.value='';}
  CHIPS.forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c;b.addEventListener('click',function(){send(c);});sug.appendChild(b);});
- add('ba',"Hi, I'm Debadatta. Ask me about my experience, tools, documents, or education.");
- function setOpen(o){panel.hidden=!o;btn.setAttribute('aria-expanded',o?'true':'false');if(o)inp.focus();}
+ function resetChat(){log.replaceChildren();inp.value='';add('ba',"Hi, I'm Debadatta. Ask me about my experience, tools, documents, or education.");}
+ function setOpen(o){
+  if(!o){log.replaceChildren();inp.value='';}
+  panel.hidden=!o;btn.setAttribute('aria-expanded',o?'true':'false');
+  if(o){if(!log.childElementCount)resetChat();inp.focus();}
+ }
  btn.addEventListener('click',function(){setOpen(panel.hidden);});
  document.getElementById('botx').addEventListener('click',function(){setOpen(false);btn.focus();});
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden){setOpen(false);btn.focus();}});
