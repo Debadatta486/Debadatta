@@ -178,6 +178,64 @@ section p strong,section li strong{font-weight:650}
 @media(max-width:860px){section{margin-bottom:24px}#documentation-leadership{margin-top:24px;margin-bottom:28px}#contact{margin-top:28px}section h2{font-size:1.5rem}section h3{font-size:1rem}}
 
 </style>
+
+<style>
+.sample-disclaimer{margin-top:22px;padding:16px 18px;border:1px solid var(--line);border-radius:10px;background:var(--tint);color:var(--ink)}
+.sample-disclaimer strong{display:block;margin-bottom:4px}.sample-disclaimer p{margin:0;color:var(--muted)}
+.site-footer{max-width:860px;margin:0 auto 24px;padding:18px 24px 30px;color:var(--muted);font-size:.92rem}
+.footer-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.footer-actions button,.feedback-choice,.cookie-actions button{font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);padding:8px 12px}
+.feedback-icon{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:8px!important}.feedback-icon svg{width:22px;height:22px;display:block}.feedback-panel,.cookie-panel{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.feedback-panel[hidden],.cookie-panel[hidden],#cookie-banner[hidden]{display:none!important}
+.feedback-options{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.feedback-options label{display:inline-flex;gap:6px;align-items:center;padding:6px 9px;border:1px solid var(--line);border-radius:8px}
+.feedback-panel textarea{width:100%;min-height:84px;margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+#cookie-banner{position:fixed;z-index:1000;left:16px;right:16px;bottom:16px;max-width:760px;margin:auto;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:0 10px 36px rgba(0,0,0,.2)}
+#cookie-banner h2{font:600 1.15rem/1.3 system-ui,sans-serif;margin:0 0 8px}#cookie-banner p{margin-bottom:12px;color:var(--muted)}.cookie-actions{display:flex;flex-wrap:wrap;gap:8px}.cookie-actions .primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#cookie-settings{position:fixed;inset:0;z-index:1001;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px}#cookie-settings[hidden]{display:none}#cookie-settings .cookie-panel{width:min(100%,520px);margin:0;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+@media(max-width:600px){#cookie-banner{left:10px;right:10px;bottom:10px;padding:15px}.site-footer{padding:16px}}
+
+
+/* Refined CTA palette and restrained motion */
+:root{--cta-blue:#2859d9;--cta-blue-hover:#1e46b3;--cta-violet:#6d4bd1;--cta-violet-hover:#5638b3;--cta-green:#16834a;--cta-green-hover:#10683a}
+.btn,.footer-actions button,.feedback-choice,.cookie-actions button,.botbtn,.theme{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
+.btn{border:1px solid var(--cta-blue);background:var(--surface);color:var(--cta-blue);box-shadow:0 3px 10px rgba(40,89,217,.08)}
+.btn:hover,.footer-actions button:hover,.feedback-choice:hover,.cookie-actions button:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(20,33,61,.13)}
+.hero-actions .btn-primary{background:var(--cta-blue);border-color:var(--cta-blue);color:#fff}
+.hero-actions .btn:not(.btn-primary):not(.cv-download){background:#334155;border-color:#334155;color:#fff}
+.hero-actions .cv-download{background:#0f766e;border-color:#0f766e;color:#fff}
+.contact-options a.btn:not(.wa),.contact-options button.btn{background:#0a66c2;border-color:#0a66c2;color:#fff}
+.contact-options button.btn.mailbtn{background:#334155;border-color:#334155;color:#fff}
+.mailopts .btn{background:#334155;border-color:#334155;color:#fff}
+.mailopts .btn:first-child{background:#c5221f;border-color:#c5221f;color:#fff}
+.mailopts .btn:nth-child(2){background:#0078d4;border-color:#0078d4;color:#fff}
+#feedback-close{float:right;border:0;background:transparent;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer;padding:0 4px}
+#feedback-submit{background:var(--cta-blue);border-color:var(--cta-blue);color:#fff}
+#feedback-submit:disabled{opacity:.6;cursor:wait}
+.hero-actions .btn-primary:hover{background:var(--cta-blue-hover);border-color:var(--cta-blue-hover)}
+.hero-actions .cv-download{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.wa{background:var(--cta-green);border-color:var(--cta-green);color:#fff}
+.btn.wa:hover{background:var(--cta-green-hover);border-color:var(--cta-green-hover)}
+button.btn.mailbtn{background:var(--cta-violet);border-color:var(--cta-violet);color:#fff}
+button.btn.mailbtn:hover{background:var(--cta-violet-hover);border-color:var(--cta-violet-hover)}
+.botbtn{background:var(--cta-blue);color:#fff;box-shadow:0 8px 24px rgba(40,89,217,.28)}
+.botbtn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(40,89,217,.34)}
+.footer-actions button,.feedback-choice{border-color:var(--line)}
+.feedback-icon[aria-pressed="true"]{background:var(--tint);border-color:var(--accent);color:var(--accent)}
+.cookie-actions .primary{background:var(--cta-blue);border-color:var(--cta-blue);color:#fff}
+.cookie-actions .primary:hover{background:var(--cta-blue-hover)}
+.hero-orbit{animation:orbit-drift 28s linear infinite}
+.hero-orbit span{animation:orbit-pulse 3.8s ease-in-out infinite}
+.hero-orbit span:nth-child(2){animation-delay:.8s}.hero-orbit span:nth-child(3){animation-delay:1.6s}
+@keyframes orbit-drift{to{transform:rotate(360deg)}}
+@keyframes orbit-pulse{0%,100%{opacity:.55;scale:.85}50%{opacity:1;scale:1.18}}
+.js-motion section:not(.hero-modern){opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.js-motion section.in-view{opacity:1;transform:translateY(0)}
+.js-motion .hero-modern{animation:hero-enter .7s ease both}
+@keyframes hero-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.tile,.card{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.tile:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(20,33,61,.08)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js-motion section:not(.hero-modern){opacity:1;transform:none}}
+
+</style>
 </head>
 <body>
 <aside class="side">
@@ -258,6 +316,7 @@ section p strong,section li strong{font-weight:650}
 <a class="card tile" href="https://debadatta-s-docs.thally.app/quickstart" rel="noopener" target="_blank"><h3>Quickstart</h3><p>Send a first GET request in Postman or curl and verify the JSON response.</p></a>
 <a class="card tile" href="https://debadatta-s-docs.thally.app/guides/validate-response" rel="noopener" target="_blank"><h3>Guide: validate an API response</h3><p>Add Postman tests that check the status code and response fields, with troubleshooting tables.</p></a>
 </div>
+<div class="sample-disclaimer" role="note"><strong>About these samples</strong><p>The Kore.ai link opens publicly available product documentation that I contribute to as part of my role. The API documentation site, quickstart, and response-validation guide are samples I created for this portfolio using the public JSONPlaceholder API.</p></div>
 </section>
 <section id="quality">
 <h2>Quality and content operations</h2>
@@ -353,6 +412,38 @@ section p strong,section li strong{font-weight:650}
 <p aria-live="polite" id="mailmsg"></p>
 <button class="btn" id="mailclose" type="button">Close</button>
 </dialog>
+<footer class="site-footer" aria-label="Site feedback and cookie settings">
+  <h2 style="font:600 1.15rem/1.3 system-ui,sans-serif;margin:0 0 8px">Was this portfolio useful?</h2>
+  <p>Share quick feedback to help improve the content.</p>
+  <div class="footer-actions">
+    <button class="feedback-choice feedback-icon" id="thumbs-up" type="button" aria-label="Helpful" title="Helpful"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4Zm4 11h6.2a2 2 0 0 0 1.9-1.4l2.1-7A2 2 0 0 0 19.3 10H14l.8-4.1A2.4 2.4 0 0 0 12.5 3L7 10v11h4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="feedback-choice feedback-icon" id="thumbs-down" type="button" aria-label="Needs improvement" title="Needs improvement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14V3H3v11h4Zm4-11h6.2a2 2 0 0 1 1.9 1.4l2.1 7a2 2 0 0 1-1.9 2.6H14l.8 4.1a2.4 2.4 0 0 1-2.3 2.9L7 14V3h4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="open-cookie-settings" type="button">Cookie settings</button>
+  </div>
+  <form class="feedback-panel" id="feedback-panel" hidden>
+    <button id="feedback-close" type="button" aria-label="Close feedback window" title="Close">×</button><strong id="feedback-title">Thanks for your feedback.</strong>
+    <p id="feedback-prompt">What was your experience?</p>
+    <div class="feedback-options" id="feedback-options"></div>
+    <label for="feedback-comments">Additional comments (optional)</label>
+    <textarea id="feedback-comments" placeholder="Tell me what worked well or what could be improved."></textarea>
+    <button class="feedback-choice" id="feedback-submit" type="submit">Submit feedback</button>
+    <p id="feedback-status" aria-live="polite"></p>
+  </form>
+</footer>
+<div id="cookie-banner" role="region" aria-label="Cookie consent" hidden>
+  <h2>Cookie settings</h2>
+  <p>This site uses Google Analytics, with your consent, to understand how visitors use the portfolio and which documentation samples are helpful. Feedback ratings also help identify content that may need improvement. You can accept or reject analytics cookies, or manage your choice.</p>
+  <div class="cookie-actions"><button class="primary" id="accept-cookies" type="button">Accept</button><button id="reject-cookies" type="button">Reject</button><button id="manage-cookies" type="button">Manage cookies</button></div>
+</div>
+<div id="cookie-settings" hidden>
+  <div class="cookie-panel" role="dialog" aria-modal="true" aria-labelledby="cookie-settings-title">
+    <h2 id="cookie-settings-title">Manage cookie preferences</h2>
+    <p>Essential site functions are always enabled. Choose whether to allow analytics cookies.</p>
+    <label><input type="checkbox" checked disabled> Essential cookies (always active)</label>
+    <p style="margin-top:10px"><label><input id="analytics-consent" type="checkbox"> Allow Google Analytics to measure visits and usage</label></p>
+    <div class="cookie-actions"><button class="primary" id="save-cookie-preferences" type="button">Save preferences</button><button id="cancel-cookie-settings" type="button">Cancel</button></div>
+  </div>
+</div>
 <script>
 (function(){
   var links=document.querySelectorAll('.side a');
@@ -418,6 +509,30 @@ section p strong,section li strong{font-weight:650}
  document.getElementById('botgo').addEventListener('click',function(){send(inp.value);});
  inp.addEventListener('keydown',function(e){if(e.key==='Enter')send(inp.value);});
 
+ // Feedback is shared through the visitor's configured email app.
+ var fp=document.getElementById('feedback-panel'), fopts=document.getElementById('feedback-options'), ftitle=document.getElementById('feedback-title'), fprompt=document.getElementById('feedback-prompt'), fstatus=document.getElementById('feedback-status'), fcomments=document.getElementById('feedback-comments'), feedbackRating='';
+ var positiveOptions=['Clear and easy to follow','Useful work samples','Easy to navigate'];
+ var negativeOptions=['Could not find what I needed','Samples need more detail','Navigation could be clearer','Other'];
+ function openFeedback(rating){feedbackRating=rating;fp.hidden=false;ftitle.textContent=rating==='up'?'Thanks for the positive feedback.':'Thanks for helping improve this portfolio.';fprompt.textContent=rating==='up'?'What did you find useful?':'What could be improved?';fopts.replaceChildren();(rating==='up'?positiveOptions:negativeOptions).forEach(function(label,i){var l=document.createElement('label'),c=document.createElement('input');c.type='checkbox';c.name='feedback-reason';c.value=label;l.appendChild(c);l.appendChild(document.createTextNode(label));fopts.appendChild(l);});fstatus.textContent='';fp.scrollIntoView({behavior:'smooth',block:'nearest'});}
+ document.getElementById('thumbs-up').addEventListener('click',function(){openFeedback('up');});
+ document.getElementById('thumbs-down').addEventListener('click',function(){openFeedback('down');});
+ document.getElementById('feedback-close').addEventListener('click',function(){fp.hidden=true;});
+ fp.addEventListener('submit',async function(e){e.preventDefault();var submit=document.getElementById('feedback-submit');var reasons=Array.from(fopts.querySelectorAll('input:checked')).map(function(c){return c.value;});var payload={Rating:feedbackRating==='up'?'Helpful':'Needs improvement','Selected options':reasons.join(', ')||'None selected',Comments:fcomments.value.trim()||'None',Page:window.location.href,_subject:'Portfolio feedback'};submit.disabled=true;submit.textContent='Sending…';fstatus.textContent='Sending feedback securely…';try{var res=await fetch('https://formsubmit.co/ajax/debadatta.ghosh46@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)});if(!res.ok)throw new Error('Submission failed');var data=await res.json();if(data.success===false)throw new Error('Submission failed');fstatus.textContent='Thank you. Your feedback has been submitted.';fcomments.value='';fopts.querySelectorAll('input').forEach(function(c){c.checked=false;});}catch(err){fstatus.textContent='Feedback could not be sent right now. Please try again later or use Connect over email.';}finally{submit.disabled=false;submit.textContent='Submit feedback';}});
+
+ // Cookie preference interface. Analytics should only be initialized after an approved consent and a valid GA ID is configured.
+ var cookieBanner=document.getElementById('cookie-banner'), cookieSettings=document.getElementById('cookie-settings'), analyticsBox=document.getElementById('analytics-consent');
+ function getConsent(){try{return localStorage.getItem('portfolio-analytics-consent');}catch(_){return null;}}
+ function saveConsent(value){try{localStorage.setItem('portfolio-analytics-consent',value);}catch(_){}cookieBanner.hidden=true;cookieSettings.hidden=true;}
+ if(!getConsent())cookieBanner.hidden=false;
+ document.getElementById('accept-cookies').addEventListener('click',function(){saveConsent('accepted');});
+ document.getElementById('reject-cookies').addEventListener('click',function(){saveConsent('rejected');});
+ function showCookieSettings(){analyticsBox.checked=getConsent()==='accepted';cookieSettings.hidden=false;}
+ document.getElementById('manage-cookies').addEventListener('click',showCookieSettings);
+ document.getElementById('open-cookie-settings').addEventListener('click',showCookieSettings);
+ document.getElementById('cancel-cookie-settings').addEventListener('click',function(){cookieSettings.hidden=true;});
+ document.getElementById('save-cookie-preferences').addEventListener('click',function(){saveConsent(analyticsBox.checked?'accepted':'rejected');});
+ cookieSettings.addEventListener('click',function(e){if(e.target===cookieSettings)cookieSettings.hidden=true;});
+
  var dlg=document.getElementById('maildlg'),mm=document.getElementById('mailmsg'),addr='debadatta.ghosh46@gmail.com';
  document.querySelectorAll('.mailbtn').forEach(function(b){b.addEventListener('click',function(){mm.textContent='';if(dlg.showModal){dlg.showModal();}else{window.open('mailto:'+addr+'?subject=Hello%20Debadatta','_blank');}});});
  document.getElementById('mailclose').addEventListener('click',function(){dlg.close();});
@@ -428,5 +543,20 @@ section p strong,section li strong{font-weight:650}
  });
 })();
 </script>
+
+<script>
+(function(){
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced) return;
+  var sections=Array.prototype.slice.call(document.querySelectorAll('main section'));
+  if(!sections.length) return;
+  document.body.classList.add('js-motion');
+  if('IntersectionObserver' in window){
+    var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target);}});},{threshold:.08,rootMargin:'0px 0px -35px 0px'});
+    sections.forEach(function(section){observer.observe(section);});
+  } else {sections.forEach(function(section){section.classList.add('in-view');});}
+})();
+</script>
+
 </body>
 </html>
