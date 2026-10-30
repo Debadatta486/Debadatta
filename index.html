@@ -432,7 +432,7 @@ button.btn.mailbtn:hover{background:var(--cta-violet-hover);border-color:var(--c
 </dialog>
 <footer class="site-footer" aria-label="Site feedback and cookie settings">
   <h2 style="font:600 1.15rem/1.3 system-ui,sans-serif;margin:0 0 8px">Was this portfolio useful?</h2>
-  <p>Share quick feedback to help improve the content.</p>
+  <p>Share quick feedback. Your email application opens with the message ready to send.</p>
   <div class="footer-actions">
     <button class="feedback-choice feedback-icon" id="thumbs-up" type="button" aria-label="Helpful" title="Helpful"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4Zm4 11h6.2a2 2 0 0 0 1.9-1.4l2.1-7A2 2 0 0 0 19.3 10H14l.8-4.1A2.4 2.4 0 0 0 12.5 3L7 10v11h4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <button class="feedback-choice feedback-icon" id="thumbs-down" type="button" aria-label="Needs improvement" title="Needs improvement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14V3H3v11h4Zm4-11h6.2a2 2 0 0 1 1.9 1.4l2.1 7a2 2 0 0 1-1.9 2.6H14l.8 4.1a2.4 2.4 0 0 1-2.3 2.9L7 14V3h4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -444,7 +444,7 @@ button.btn.mailbtn:hover{background:var(--cta-violet-hover);border-color:var(--c
     <div class="feedback-options" id="feedback-options"></div>
     <label for="feedback-comments">Additional comments (optional)</label>
     <textarea id="feedback-comments" placeholder="Tell me what worked well or what could be improved."></textarea>
-    <button class="feedback-choice" id="feedback-submit" type="submit">Submit feedback</button>
+    <button class="feedback-choice" id="feedback-submit" type="submit">Open email to send feedback</button>
     <p id="feedback-status" aria-live="polite"></p>
   </form>
 </footer>
@@ -537,7 +537,7 @@ button.btn.mailbtn:hover{background:var(--cta-violet-hover);border-color:var(--c
  document.getElementById('thumbs-up').addEventListener('click',function(){openFeedback('up');});
  document.getElementById('thumbs-down').addEventListener('click',function(){openFeedback('down');});
  document.getElementById('feedback-close').addEventListener('click',closeFeedback);
- fp.addEventListener('submit',async function(e){e.preventDefault();var submit=document.getElementById('feedback-submit');var reasons=Array.from(fopts.querySelectorAll('input:checked')).map(function(c){return c.value;});var payload={Rating:feedbackRating==='up'?'Helpful':'Needs improvement','Selected options':reasons.join(', ')||'None selected',Comments:fcomments.value.trim()||'None',Page:window.location.href,_subject:'Portfolio feedback'};submit.disabled=true;submit.textContent='Sending…';fstatus.textContent='Sending feedback securely…';try{var res=await fetch('https://formsubmit.co/ajax/debadatta.ghosh46@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)});var data=await res.json().catch(function(){return {};});if(!res.ok||data.success===false)throw new Error('Submission failed');fstatus.textContent='Thank you. Your feedback has been submitted.';window.setTimeout(closeFeedback,900);}catch(err){fstatus.textContent='Feedback could not be sent right now. Please try again later, or connect over email.';}finally{submit.disabled=false;submit.textContent='Submit feedback';}});
+ fp.addEventListener('submit',function(e){e.preventDefault();var reasons=Array.from(fopts.querySelectorAll('input:checked')).map(function(c){return c.value;});var rating=feedbackRating==='up'?'Helpful':'Needs improvement';var comments=fcomments.value.trim()||'None';var subject='Portfolio feedback - '+rating;var body=['Portfolio feedback','', 'Rating: '+rating,'Selected options: '+(reasons.join(', ')||'None selected'),'Comments: '+comments,'Page: '+window.location.href].join('\n');var mailto='mailto:debadatta.ghosh46@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);fstatus.textContent='Opening your email application. Review the message and select Send to share your feedback.';var link=document.createElement('a');link.href=mailto;link.textContent='If your email application does not open, click here to send feedback.';link.style.display='inline-block';link.style.marginTop='8px';link.style.fontWeight='600';link.id='feedback-mail-fallback';var existing=document.getElementById('feedback-mail-fallback');if(existing)existing.remove();fstatus.appendChild(document.createElement('br'));fstatus.appendChild(link);window.location.href=mailto;});
 
  // Cookie preference interface. Analytics should only be initialized after an approved consent and a valid GA ID is configured.
  var cookieBanner=document.getElementById('cookie-banner'), cookieSettings=document.getElementById('cookie-settings'), analyticsBox=document.getElementById('analytics-consent');
