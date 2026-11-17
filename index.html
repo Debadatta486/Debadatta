@@ -152,6 +152,73 @@ ol.steps>li p{margin:0!important;max-width:760px;color:var(--muted)!important;li
 @media(min-width:1100px){#documents .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}#documents .grid>.card{padding:22px!important}}
 @media(max-width:720px){#documents .grid,#skills{grid-template-columns:1fr!important}#documents .grid>.card{padding:21px!important}#skills .skill-panel{padding:19px!important}#skills .skill-heading{flex-wrap:wrap}#skills .skill-count{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){#documents .grid>.card{transition:none!important}}
+</style><style id="consistent-tile-interactions">
+/* One shared lift-and-pop interaction for the portfolio's visual tiles. */
+:root{--tile-lift:-5px;--tile-pop-shadow:0 18px 38px rgba(0,0,0,.19),0 5px 12px rgba(0,0,0,.08)}
+#documents .grid>.card,
+#samples .grid>.card,
+#quality .grid>.card,
+#domains .grid>.card,
+#skills .skill-panel,
+.visual-gallery .visual-tile,
+#experience .job,
+#projects .project-feature,
+#projects .project-access-note{
+  transition:transform .24s cubic-bezier(.2,.75,.25,1),box-shadow .24s ease,border-color .24s ease!important;
+  transform:translateY(0) scale(1);
+  will-change:auto;
+}
+@media(hover:hover) and (pointer:fine){
+  #documents .grid>.card:hover,
+  #samples .grid>.card:hover,
+  #quality .grid>.card:hover,
+  #domains .grid>.card:hover,
+  #skills .skill-panel:hover,
+  .visual-gallery .visual-tile:hover,
+  #experience .job:hover,
+  #projects .project-feature:hover,
+  #projects .project-access-note:hover{
+    transform:translateY(var(--tile-lift)) scale(1.012)!important;
+    box-shadow:var(--tile-pop-shadow)!important;
+    border-color:var(--accent)!important;
+    position:relative;
+    z-index:2;
+  }
+}
+/* Keyboard focus receives the same visual emphasis as mouse hover. */
+#documents .grid>.card:focus-within,
+#samples .grid>.card:focus-visible,
+#quality .grid>.card:focus-within,
+#domains .grid>.card:focus-within,
+#skills .skill-panel:focus-within,
+.visual-gallery .visual-tile:focus-within,
+#experience .job:focus-within,
+#projects .project-feature:focus-within,
+#projects .project-access-note:focus-within{
+  transform:translateY(-3px) scale(1.008)!important;
+  box-shadow:var(--tile-pop-shadow)!important;
+  border-color:var(--accent)!important;
+}
+/* On touch devices use a brief press effect rather than sticky hover. */
+@media(hover:none){
+  #documents .grid>.card:active,
+  #samples .grid>.card:active,
+  #quality .grid>.card:active,
+  #domains .grid>.card:active,
+  #skills .skill-panel:active,
+  .visual-gallery .visual-tile:active,
+  #experience .job:active{
+    transform:scale(.988)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #documents .grid>.card,#samples .grid>.card,#quality .grid>.card,#domains .grid>.card,
+  #skills .skill-panel,.visual-gallery .visual-tile,#experience .job,
+  #projects .project-feature,#projects .project-access-note{transition:none!important;transform:none!important}
+  #documents .grid>.card:hover,#samples .grid>.card:hover,#quality .grid>.card:hover,#domains .grid>.card:hover,
+  #skills .skill-panel:hover,.visual-gallery .visual-tile:hover,#experience .job:hover,
+  #projects .project-feature:hover,#projects .project-access-note:hover{transform:none!important}
+}
 </style></head>
 <body>
 <aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Debadatta Dutta home" class="site-brand" href="#about"><span class="brand-mark">DD</span><span class="brand-name">Debadatta<br/>Dutta</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#about">Home</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav><div class="header-actions"><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
