@@ -1176,15 +1176,15 @@ const api=window.DDPortfolioPages;
 const launch=document.getElementById('dd-watch-launch');
 if(!api||!launch)return;
 const chapters=[
- ['Making complexity clear.','A technical writer focused on making complex products easier to use.',8],
+ ['Making complexity clear.','A technical writer focused on making complex products easier to use.',10],
  ['About Me','Meet the person behind the documentation.',10],
- ['Career Journey','Experience across technical writing and documentation leadership.',12],
- ['Selected Work','Explore practical documentation samples and projects.',13],
- ['Innovation & Impact','Documentation discovery, quality, and measurable outcomes.',12],
+ ['Career Journey','Experience across technical writing and documentation leadership.',10],
+ ['Selected Work','Explore practical documentation samples and projects.',10],
+ ['Innovation & Impact','Documentation discovery, quality, and measurable outcomes.',10],
  ['Tools & Technologies','Tools that support scalable documentation workflows.',10],
- ['Approach & Strengths','Clarity, collaboration, and a playable documentation challenge.',11],
- ['Domains & Standards','Working across product domains and documentation standards.',8],
- ['Let’s Connect','Explore the full portfolio or get in touch.',6]
+ ['Approach & Strengths','Clarity, collaboration, and a playable documentation challenge.',10],
+ ['Domains & Standards','Working across product domains and documentation standards.',10],
+ ['Let’s Connect','Explore the full portfolio or get in touch.',10]
 ];
 const total=chapters.reduce((n,c)=>n+c[2],0)*1000;
 const bar=document.createElement('div');bar.id='dd-presentation-bar';bar.setAttribute('role','region');bar.setAttribute('aria-label','Portfolio presentation controls');
@@ -1196,38 +1196,47 @@ const offsets=[0];for(const c of chapters)offsets.push(offsets.at(-1)+c[2]*1000)
 const clock=ms=>{const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');};
 function stop(){running=false;paused=false;cancelAnimationFrame(raf);bar.classList.remove('is-active');document.body.classList.remove('dd-presenting');launch.setAttribute('aria-pressed','false');}
 function showChapter(i){activeIndex=i;title.textContent=chapters[i][0];caption.textContent=chapters[i][1];}
+let chapterIndex=0,chapterElapsed=0,waitingForPage=false;
 function tick(now){
  if(!running)return;
  if(!last)last=now;
  const delta=Math.min(100,now-last);last=now;
  if(!paused){
-  elapsed=Math.min(total,elapsed+delta);
-  let i=chapters.length-1;for(let k=0;k<chapters.length;k++){if(elapsed<offsets[k+1]){i=k;break;}}
-  // Avoid advancing the presentation timeline while the swing transition is locked.
-  if(i!==api.current){
-    if(!api.locked)api.go(i);
+  if(api.current!==chapterIndex){
+   if(!api.locked)api.go(chapterIndex);
+   waitingForPage=true;
+  }else if(api.locked){
+   waitingForPage=true;
+  }else{
+   // The full page transition must settle before its playback clock starts.
+   if(waitingForPage){waitingForPage=false;last=now;}
+   else chapterElapsed=Math.min(10000,chapterElapsed+delta);
+   const p=api.panels[chapterIndex];
+   if(p){
+    const max=Math.max(0,p.scrollHeight-p.clientHeight);
+    const fraction=Math.max(0,Math.min(1,(chapterElapsed/10000-.12)/.76));
+    p.scrollTop=max*fraction;
+   }
+   if(chapterElapsed>=10000){
+    if(chapterIndex===chapters.length-1){paused=true;pauseBtn.textContent='Replay';}
+    else{
+     chapterIndex++;chapterElapsed=0;waitingForPage=true;
+     if(!api.locked)api.go(chapterIndex);
+     showChapter(chapterIndex);
+    }
+   }
   }
-  if(activeIndex!==i)showChapter(i);
-  const p=api.panels[api.current];
-  if(p){
-   const max=Math.max(0,p.scrollHeight-p.clientHeight);
-   const duration=chapters[api.current][2]*1000;
-   const local=Math.max(0,Math.min(1,(elapsed-offsets[api.current])/duration));
-   // Show the top briefly, then traverse all content, then hold the bottom.
-   const fraction=Math.max(0,Math.min(1,(local-.13)/.70));
-   p.scrollTop=max*fraction;
-  }
+  elapsed=chapterIndex*10000+chapterElapsed;
   timer.textContent=clock(elapsed)+' / '+clock(total);
   progress.style.width=(elapsed/total*100)+'%';
   track.setAttribute('aria-valuenow',String(Math.round(elapsed/1000)));
-  if(elapsed>=total){pauseBtn.textContent='Replay';paused=true;}
  }
  raf=requestAnimationFrame(tick);
 }
 function start(){
- stop();elapsed=0;last=0;activeIndex=-1;running=true;paused=false;
+ stop();elapsed=0;last=0;activeIndex=-1;chapterIndex=0;chapterElapsed=0;waitingForPage=false;running=true;paused=false;
  document.body.classList.add('dd-presenting');bar.classList.add('is-active');launch.setAttribute('aria-pressed','true');pauseBtn.textContent='Pause';
- if(api.current!==0&&!api.locked)api.go(0);
+ if(api.current!==0){waitingForPage=true;if(!api.locked)api.go(0);}
  showChapter(0);raf=requestAnimationFrame(tick);
 }
 launch.addEventListener('click',start);
