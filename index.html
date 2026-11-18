@@ -587,7 +587,7 @@ body.dd-presenting .swing-page-hint{display:none!important}
 @media(max-width:800px){#dd-watch-launch{font-size:11px;padding:7px 9px}}
 @media(prefers-reduced-motion:reduce){#dd-pres-progress{transition:none}}</style></head>
 <body id="top">
-<aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-career">Career</a><a href="#chapter-selected">Work</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-tools">Tools</a><a href="#chapter-approach">Approach</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Watch 90-second portfolio presentation" id="dd-watch-launch" type="button">▶ Watch My Portfolio</button><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
+<aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-career">Career</a><a href="#chapter-selected">Work</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-tools">Tools</a><a href="#chapter-approach">Approach</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Watch my portfolio presentation" id="dd-watch-launch" type="button">▶ Watch My Portfolio</button><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
 <main><section aria-label="Portfolio cover" class="chapter-cover" id="cover">
 <div class="cover-top"><span>TECHNICAL WRITING / DEVELOPER DOCUMENTATION / DOCUMENTATION ENGINEERING</span></div>
 <div class="cover-layout"><div class="cover-copy"><p class="cover-kicker">DEBADATTA DUTTA · PORTFOLIO</p><h1>Making<br/>complexity<br/><em>clear.</em></h1><p>Documentation that connects complex products with the people who use them.</p><a class="cover-explore" href="#about">Scroll to explore ↓</a></div>
@@ -1186,17 +1186,27 @@ const chapters=[
  ['Domains & Standards','Working across product domains and documentation standards.',10],
  ['Let’s Connect','Explore the full portfolio or get in touch.',10]
 ];
-const total=chapters.reduce((n,c)=>n+c[2],0)*1000;
+// Time-based chapter durations made long pages rush and short pages crawl.
+// Instead move the viewport at one fixed physical speed (CSS px/second).
+const SCROLL_PX_PER_SECOND=185;
+const INTRO_MS=1300;
+const END_HOLD_MS=1300;
+const MIN_CHAPTER_MS=4800;
 const bar=document.createElement('div');bar.id='dd-presentation-bar';bar.setAttribute('role','region');bar.setAttribute('aria-label','Portfolio presentation controls');
-bar.innerHTML='<div class="dd-pres-line"><div class="dd-pres-copy"><strong id="dd-pres-title"></strong><span id="dd-pres-caption"></span></div><span id="dd-pres-time" aria-live="off">00:00 / 01:30</span><button class="dd-pres-button" id="dd-pres-pause" type="button">Pause</button><button class="dd-pres-button" id="dd-pres-explore" type="button">Explore here</button><button class="dd-pres-button" id="dd-pres-exit" type="button">Exit ✕</button></div><div class="dd-pres-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="0" aria-valuemax="90" aria-valuenow="0" id="dd-pres-track"><div id="dd-pres-progress"></div></div>';
+bar.innerHTML='<div class="dd-pres-line"><div class="dd-pres-copy"><strong id="dd-pres-title"></strong><span id="dd-pres-caption"></span></div><span id="dd-pres-time" aria-live="off">00:00 elapsed</span><button class="dd-pres-button" id="dd-pres-pause" type="button">Pause</button><button class="dd-pres-button" id="dd-pres-explore" type="button">Explore here</button><button class="dd-pres-button" id="dd-pres-exit" type="button">Exit ✕</button></div><div class="dd-pres-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="dd-pres-track"><div id="dd-pres-progress"></div></div>';
 document.body.appendChild(bar);
 let running=false,paused=false,elapsed=0,last=0,raf=0,activeIndex=-1;
+let chapterIndex=0,chapterElapsed=0,waitingForPage=false;
+let durations=[],scrollLengths=[],total=0;
 const title=bar.querySelector('#dd-pres-title'),caption=bar.querySelector('#dd-pres-caption'),timer=bar.querySelector('#dd-pres-time'),progress=bar.querySelector('#dd-pres-progress'),track=bar.querySelector('#dd-pres-track'),pauseBtn=bar.querySelector('#dd-pres-pause');
-const offsets=[0];for(const c of chapters)offsets.push(offsets.at(-1)+c[2]*1000);
 const clock=ms=>{const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');};
+function measure(){
+ scrollLengths=api.panels.map(p=>Math.max(0,p.scrollHeight-p.clientHeight));
+ durations=scrollLengths.map(px=>Math.max(MIN_CHAPTER_MS,INTRO_MS+px/SCROLL_PX_PER_SECOND*1000+END_HOLD_MS));
+ total=durations.reduce((a,b)=>a+b,0);
+}
 function stop(){running=false;paused=false;cancelAnimationFrame(raf);bar.classList.remove('is-active');document.body.classList.remove('dd-presenting');launch.setAttribute('aria-pressed','false');}
 function showChapter(i){activeIndex=i;title.textContent=chapters[i][0];caption.textContent=chapters[i][1];}
-let chapterIndex=0,chapterElapsed=0,waitingForPage=false;
 function tick(now){
  if(!running)return;
  if(!last)last=now;
@@ -1208,16 +1218,16 @@ function tick(now){
   }else if(api.locked){
    waitingForPage=true;
   }else{
-   // The full page transition must settle before its playback clock starts.
    if(waitingForPage){waitingForPage=false;last=now;}
-   else chapterElapsed=Math.min(10000,chapterElapsed+delta);
+   else chapterElapsed=Math.min(durations[chapterIndex],chapterElapsed+delta);
    const p=api.panels[chapterIndex];
    if(p){
     const max=Math.max(0,p.scrollHeight-p.clientHeight);
-    const fraction=Math.max(0,Math.min(1,(chapterElapsed/10000-.12)/.76));
-    p.scrollTop=max*fraction;
+    // Recalculate the length on entry in case responsive content changed size.
+    const scrolled=Math.min(max,Math.max(0,(chapterElapsed-INTRO_MS)/1000*SCROLL_PX_PER_SECOND));
+    p.scrollTop=scrolled;
    }
-   if(chapterElapsed>=10000){
+   if(chapterElapsed>=durations[chapterIndex]){
     if(chapterIndex===chapters.length-1){paused=true;pauseBtn.textContent='Replay';}
     else{
      chapterIndex++;chapterElapsed=0;waitingForPage=true;
@@ -1226,15 +1236,16 @@ function tick(now){
     }
    }
   }
-  elapsed=chapterIndex*10000+chapterElapsed;
-  timer.textContent=clock(elapsed)+' / '+clock(total);
-  progress.style.width=(elapsed/total*100)+'%';
-  track.setAttribute('aria-valuenow',String(Math.round(elapsed/1000)));
+  elapsed=durations.slice(0,chapterIndex).reduce((a,b)=>a+b,0)+chapterElapsed;
+  timer.textContent=clock(elapsed)+' / ~'+clock(total);
+  const percent=total?Math.min(100,elapsed/total*100):0;
+  progress.style.width=percent+'%';
+  track.setAttribute('aria-valuenow',String(Math.round(percent)));
  }
  raf=requestAnimationFrame(tick);
 }
 function start(){
- stop();elapsed=0;last=0;activeIndex=-1;chapterIndex=0;chapterElapsed=0;waitingForPage=false;running=true;paused=false;
+ stop();measure();elapsed=0;last=0;activeIndex=-1;chapterIndex=0;chapterElapsed=0;waitingForPage=false;running=true;paused=false;
  document.body.classList.add('dd-presenting');bar.classList.add('is-active');launch.setAttribute('aria-pressed','true');pauseBtn.textContent='Pause';
  if(api.current!==0){waitingForPage=true;if(!api.locked)api.go(0);}
  showChapter(0);raf=requestAnimationFrame(tick);
