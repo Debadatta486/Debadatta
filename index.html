@@ -495,7 +495,7 @@ body>main>.scroll-chapter.swing-depart-right[data-motion="down"]{transform:trans
 #chapter-about .badge-scene > .elastic-lanyard {visibility:hidden!important;}
 #chapter-about .badge-scene.badge-entrance-started > #idcard,
 #chapter-about .badge-scene.badge-entrance-started > .elastic-lanyard {visibility:visible!important;}
-</style><style id="cover-top-alignment">.chapter-cover .cover-top{justify-content:flex-end;text-align:right}</style></head>
+</style><style id="cover-top-alignment">.chapter-cover .cover-top{justify-content:flex-end;text-align:right}</style><style id="about-reading-pause-style">#chapter-about::after{content:"AT THE END, PAUSE · SCROLL AGAIN TO CONTINUE";display:block;text-align:center;font:600 10px/1.5 Arial,sans-serif;letter-spacing:.13em;opacity:.55;padding:18px 12px 24px;}@media(prefers-reduced-motion:reduce){#chapter-about::after{content:"SCROLL AGAIN TO CONTINUE"}}</style></head>
 <body id="top">
 <aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-career">Career</a><a href="#chapter-selected">Work</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-tools">Tools</a><a href="#chapter-domains">Domains</a><a href="#chapter-approach">Approach</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
 <main><section aria-label="Portfolio cover" class="chapter-cover" id="cover">
@@ -885,6 +885,10 @@ panels.forEach((p,i)=>p.dataset.motion=['right','right','up','left','down','righ
 const labels=['Cover','About Me','Career Journey','Selected Work','Innovation & Impact','Tools & Technologies','Domains & Standards','Approach & Strengths','Contact'];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let current=0,locked=false,accum=0,lockTimer=null;
+// About Me contains a final illustrated section. Require a deliberate pause at its end.
+let aboutEdgeSince=0, aboutLastWheel=0, aboutGestureArmed=false;
+const ABOUT_READ_PAUSE_MS=2000;
+function resetAboutGate(){aboutEdgeSince=0;aboutLastWheel=0;aboutGestureArmed=false;}
 const dots=document.createElement('nav');dots.className='chapter-progress';dots.setAttribute('aria-label','Portfolio pages');
 panels.forEach((p,i)=>{
  const a=document.createElement('a');a.href='#'+p.id;a.title=labels[i];a.setAttribute('aria-label',labels[i]);
@@ -905,7 +909,7 @@ function update(){
 function go(i){
  i=Math.max(0,Math.min(panels.length-1,i));
  if(i===current||locked)return;
- const prev=current;current=i;locked=true;accum=0;
+ const prev=current;current=i;locked=true;accum=0;resetAboutGate();
  const outgoing=panels[prev];
  panels[i].scrollTop=0;
  update();
@@ -927,7 +931,18 @@ window.addEventListener('wheel',e=>{
  const dir=Math.sign(e.deltaY);
  if(!dir)return;
  if(locked){e.preventDefault();return;}
- if(!atEdge(p,dir)){accum=0;return;}
+ if(!atEdge(p,dir)){accum=0;if(current===1)resetAboutGate();return;}
+ // On the About page, pause at the bottom so the final illustration is readable.
+ // A fresh scroll gesture after the pause advances; inertial scrolling cannot skip it.
+ if(current===1 && dir>0){
+   e.preventDefault();
+   const now=performance.now();
+   if(!aboutEdgeSince){aboutEdgeSince=now;aboutLastWheel=now;aboutGestureArmed=false;accum=0;return;}
+   if(now-aboutEdgeSince<ABOUT_READ_PAUSE_MS){aboutLastWheel=now;accum=0;return;}
+   if(now-aboutLastWheel>300)aboutGestureArmed=true;
+   aboutLastWheel=now;
+   if(!aboutGestureArmed){accum=0;return;}
+ }
  if((dir>0&&current===panels.length-1)||(dir<0&&current===0))return;
  e.preventDefault();
  accum+=e.deltaY;
@@ -938,7 +953,10 @@ window.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;start={y
 window.addEventListener('touchend',e=>{
  if(!start||locked)return;
  const dy=start.y-e.changedTouches[0].clientY,dx=start.x-e.changedTouches[0].clientX;
- if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.4&&atEdge(panels[current],Math.sign(dy)))go(current+Math.sign(dy));
+ if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.4&&atEdge(panels[current],Math.sign(dy))){
+   if(current===1&&dy>0){const now=performance.now();if(!aboutEdgeSince){aboutEdgeSince=now;return;}if(now-aboutEdgeSince<ABOUT_READ_PAUSE_MS)return;}
+   go(current+Math.sign(dy));
+ }
  start=null;
 },{passive:true});
 document.addEventListener('click',e=>{
