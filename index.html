@@ -317,7 +317,17 @@ ol.steps>li p{margin:0!important;max-width:760px;color:var(--muted)!important;li
  animation:none!important; transition:none!important;
 }
 </style>
-<style id="lanyard-mobile-visibility">@media(max-width:600px){.badge-scene > .lanyard > span{top:107px!important;font-size:8px!important;letter-spacing:-.02em!important}}</style></head>
+<style id="lanyard-mobile-visibility">@media(max-width:600px){.badge-scene > .lanyard > span{top:107px!important;font-size:8px!important;letter-spacing:-.02em!important}}</style><style id="spring-lanyard-animation">
+.badge-scene .identity-card{transition:none!important;will-change:transform}
+.badge-scene .lanyard{transition:none!important;will-change:transform}
+@media(prefers-reduced-motion:reduce){.badge-scene .identity-card,.badge-scene .lanyard{will-change:auto}}
+</style><style id="elastic-slot-and-strap">
+.badge-scene{isolation:isolate}
+.badge-scene .elastic-lanyard{position:absolute;left:0;top:-135px;width:100%;height:570px;overflow:visible;pointer-events:none;z-index:2}
+.badge-scene .identity-card{z-index:3;transition:none!important;will-change:transform}
+.id-lanyard-slot{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:52px;height:12px;border-radius:12px;background:#13261f;border:3px solid #bdc7bd;box-shadow:inset 0 2px 3px #0008,0 1px 2px #fff7;z-index:8;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.badge-scene .identity-card{will-change:auto}}
+</style></head>
 <body id="top">
 <aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#about">Home</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav><div class="header-actions"><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
 <main>
@@ -635,11 +645,75 @@ ol.steps>li p{margin:0!important;max-width:760px;color:var(--muted)!important;li
 })();
 </script>
 <script>(()=>{
-const card=document.getElementById('idcard');let down=null,drag=false,angle=0;card.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,angle};drag=false;if(card.setPointerCapture)card.setPointerCapture(e.pointerId)});card.addEventListener('pointermove',e=>{if(!down)return;let dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>7)drag=true;if(drag){angle=Math.max(-28,Math.min(28,down.angle+dx*.11));card.style.transform=`translate(${Math.max(-38,Math.min(38,dx*.22))}px,${Math.max(-24,Math.min(24,dy*.15))}px) rotate(${angle}deg)`}});card.addEventListener('pointerup',()=>{down=null;setTimeout(()=>{card.style.transform='rotate(0deg)';angle=0},250)});card.addEventListener('click',e=>{if(drag){e.preventDefault();drag=false;return}card.classList.toggle('flipped')});
+const card=document.getElementById('idcard');
+const scene=card.closest('.badge-scene');
+const oldStrap=scene.querySelector('.lanyard');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ns='http://www.w3.org/2000/svg';
+const svg=document.createElementNS(ns,'svg');
+svg.setAttribute('class','elastic-lanyard');
+svg.setAttribute('aria-hidden','true');
+svg.innerHTML=`<defs><linearGradient id="strap-shade" x1="0" x2="1"><stop stop-color="#091c16"/><stop offset=".47" stop-color="#294a3b"/><stop offset="1" stop-color="#091c16"/></linearGradient></defs>
+<path class="strap-outline" fill="none" stroke="#142820" stroke-width="42" stroke-linecap="round"/>
+<path class="strap-fabric" fill="none" stroke="url(#strap-shade)" stroke-width="36" stroke-linecap="round"/>
+<path class="strap-stitch" fill="none" stroke="#a3b5a4" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+<path id="elastic-text-path" fill="none" stroke="none"/>
+<text fill="#f1eee2" font-size="10" font-weight="800" letter-spacing=".5"><textPath href="#elastic-text-path" startOffset="50%" text-anchor="middle">DD · DEBADATTA</textPath></text>`;
+scene.insertBefore(svg,card);
+if(oldStrap)oldStrap.style.display='none';
+const slot=document.createElement('span');
+slot.className='id-lanyard-slot';slot.setAttribute('aria-hidden','true');
+card.appendChild(slot);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+let x=reduced?0:-170,y=reduced?0:-95,vx=0,vy=0,held=false,dragged=false,down=null,frame=0,raf=0,suppress=false;
+function renderLanyard(){
+ const tilt=clamp(x*.12+vx*.20,-23,23);
+ card.style.transform=`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0) rotate(${tilt.toFixed(2)}deg)`;
+ const sc=scene.getBoundingClientRect(),cr=card.getBoundingClientRect();
+ const width=sc.width,origin=width/2,top=135;
+ svg.setAttribute('viewBox',`0 0 ${width} 570`);
+ const ex=cr.left+cr.width/2-sc.left,ey=cr.top-sc.top+top+14;
+ // Fixed upper attachment, curved flexible fabric, lower attachment at card slot.
+ const dx=ex-origin,dist=Math.hypot(dx,ey);
+ const sag=clamp((dist-210)*.22,0,60);
+ const c1x=origin+dx*.10,c2x=ex-dx*.32;
+ const path=`M ${origin} 2 C ${c1x} ${Math.max(35,ey*.36+sag)} ${c2x} ${Math.max(60,ey*.74+sag)} ${ex} ${ey}`;
+ svg.querySelectorAll('.strap-outline,.strap-fabric,.strap-stitch,#elastic-text-path').forEach(el=>el.setAttribute('d',path));
+}
+function tick(){
+ if(!held){
+  // Soft elastic spring with low damping, including horizontal pendulum travel.
+  vx+=(0-x)*.023;vy+=(0-y)*.040;
+  vx*=.968;vy*=.917;
+  x+=vx;y+=vy;
+  if(Math.abs(x)+Math.abs(y)+Math.abs(vx)+Math.abs(vy)<.22 && frame>150){x=y=vx=vy=0;renderLanyard();raf=0;return;}
+ }
+ renderLanyard();frame++;raf=requestAnimationFrame(tick);
+}
+card.addEventListener('pointerdown',e=>{
+ if(e.button!==0)return;
+ held=true;dragged=false;down={x:e.clientX,y:e.clientY,bx:x,by:y};
+ card.setPointerCapture?.(e.pointerId);
+ if(!raf)raf=requestAnimationFrame(tick);
+});
+card.addEventListener('pointermove',e=>{
+ if(!held||!down)return;
+ const dx=e.clientX-down.x,dy=e.clientY-down.y;
+ if(Math.hypot(dx,dy)>6)dragged=true;
+ if(!dragged)return;
+ const nx=clamp(down.bx+dx,-185,185),ny=clamp(down.by+dy,-155,180);
+ vx=clamp(nx-x,-25,25);vy=clamp(ny-y,-25,25);x=nx;y=ny;
+});
+function release(){if(!held)return;held=false;down=null;if(!raf)raf=requestAnimationFrame(tick);}
+card.addEventListener('pointerup',()=>{if(dragged){suppress=true;setTimeout(()=>suppress=false,250);}release();});
+card.addEventListener('pointercancel',release);
+card.addEventListener('lostpointercapture',release);
+card.addEventListener('click',e=>{if(suppress||dragged){e.preventDefault();dragged=false;return;}card.classList.toggle('flipped');});
+window.addEventListener('resize',render,{passive:true});
+if(reduced)renderLanyard();else raf=requestAnimationFrame(tick);
 
-card.addEventListener('pointercancel',()=>{down=null;card.style.transform='rotate(0deg)';drag=false});
 const docs=[{product:'service',title:'API authentication overview',section:'Security / Authentication',body:'Configure API authentication and securely validate service requests.'},{product:'work',title:'Authentication for developer APIs',section:'Developer guides / API',body:'Learn how API keys authenticate requests to AI for Work.'},{product:'service',title:'Configure service API keys',section:'Integration / API keys',body:'Generate keys and test your integration with the API.'},{product:'work',title:'Getting started with AI for Work',section:'Quickstart',body:'Create a workspace and configure authentication.'},{product:'service',title:'Search knowledge articles',section:'Knowledge / Search',body:'Find documentation and relevant knowledge articles across service channels.'},{product:'work',title:'Search across workspaces',section:'Discovery / Search',body:'Find resources with unified search and relevant ranking.'},{product:'work',title:'Validate an API response',section:'API / Testing',body:'Use sample requests and verify status codes and response fields.'}];let filter='all';const input=document.getElementById('demo-query'),results=document.getElementById('demo-results'),recent=document.getElementById('recent-tags');let history=[];try{history=JSON.parse(localStorage.getItem('dd-search-demo-recent')||'[]')}catch(e){}function safe(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function mark(t,terms){let out=safe(t);terms.forEach(term=>{if(!term)return;const re=new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');out=out.replace(re,'<mark>$1</mark>')});return out}function render(){const q=input.value.trim(),terms=q.toLowerCase().split(/\s+/).filter(Boolean);let matches=docs.filter(d=>(filter==='all'||d.product===filter)&&terms.every(t=>(d.title+' '+d.section+' '+d.body).toLowerCase().includes(t))).map(d=>({...d,score:terms.reduce((n,t)=>n+(d.title.toLowerCase().includes(t)?5:0)+(d.section.toLowerCase().includes(t)?3:0)+(d.body.toLowerCase().includes(t)?1:0),0)})).sort((a,b)=>b.score-a.score);if(filter==='all'){const a=matches.filter(d=>d.product==='service'),b=matches.filter(d=>d.product==='work');matches=[];while((a.length||b.length)&&matches.length<4){if(a.length)matches.push(a.shift());if(b.length)matches.push(b.shift())}}results.innerHTML=matches.length?matches.slice(0,4).map(d=>`<div class="result-item"><small>${d.product==='service'?'AI FOR SERVICE':'AI FOR WORK'} · ${safe(d.section)}</small><strong>${mark(d.title,terms)}</strong><p>${mark(d.body,terms)}</p></div>`).join(''):'<div class="result-item"><strong>No matching sample results</strong><p>Try “API”, “authentication”, “search”, or “workspace”.</p></div>';recent.innerHTML=history.slice(0,4).map(x=>`<button type="button" data-query="${safe(x)}">${safe(x)}</button>`).join('')}function save(){let q=input.value.trim();if(q.length<2)return;history=[q,...history.filter(x=>x.toLowerCase()!==q.toLowerCase())].slice(0,5);try{localStorage.setItem('dd-search-demo-recent',JSON.stringify(history))}catch(e){}render()}input.addEventListener('input',render);input.addEventListener('keydown',e=>{if(e.key==='Enter')save()});input.addEventListener('blur',save);document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));render()}));recent.addEventListener('click',e=>{if(e.target.dataset.query){input.value=e.target.dataset.query;render();input.focus()}});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='k'){e.preventDefault();input.focus();input.select()}});render();
 // User-initiated ambient sound, synthesized locally; never auto-play.
-let audio=null,nodes=[];const btn=document.getElementById('audio-toggle');function stop(){if(!audio)return;nodes.forEach(n=>{try{n.stop()}catch(e){}});nodes=[];audio.close();audio=null;btn.innerHTML='♫ <span class="audio-text">Sound off</span>';btn.setAttribute('aria-label','Play ambient sound')}function start(){const C=window.AudioContext||window.webkitAudioContext;if(!C){btn.title='Audio is unavailable in this browser';return;}try{audio=new C();}catch(e){btn.title='Audio could not start';return;}const master=audio.createGain();master.gain.value=.018;master.connect(audio.destination);[130.81,164.81,196,261.63].forEach((hz,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=hz;g.gain.value=.17;const lfo=audio.createOscillator(),lg=audio.createGain();lfo.frequency.value=.06+i*.015;lg.gain.value=.045;lfo.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(master);o.start();lfo.start();nodes.push(o,lfo)});btn.innerHTML='♫ <span class="audio-text">Sound on</span>';btn.setAttribute('aria-label','Stop ambient sound')}btn.addEventListener('click',()=>audio?stop():start());document.addEventListener('visibilitychange',()=>{if(document.hidden&&audio)stop()});
+let audio=null,nodes=[];const btn=document.getElementById('audio-toggle');function stop(){if(!audio)return;nodes.forEach(n=>{try{n.stop()}catch(e){}});nodes=[];audio.close();audio=null;btn.innerHTML='♫ <span class="audio-text">Sound off</span>';btn.setAttribute('aria-label','Play ambient sound')}function start(){const C=window.AudioContext||window.webkitAudioContext;if(!C){btn.title='Audio is unavailable in this browser';return;}try{audio=new C();}catch(e){btn.title='Audio could not start';return;}const master=audio.createGain();master.gain.value=.030;master.connect(audio.destination);[130.81,164.81,196,261.63].forEach((hz,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=hz;g.gain.value=.17;const lfo=audio.createOscillator(),lg=audio.createGain();lfo.frequency.value=.06+i*.015;lg.gain.value=.045;lfo.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(master);o.start();lfo.start();nodes.push(o,lfo)});btn.innerHTML='♫ <span class="audio-text">Sound on</span>';btn.setAttribute('aria-label','Stop ambient sound')}btn.addEventListener('click',()=>audio?stop():start());document.addEventListener('visibilitychange',()=>{if(document.hidden&&audio)stop()});
 })();</script></body>
 </html>
