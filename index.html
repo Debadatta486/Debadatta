@@ -4,7 +4,7 @@
   HOW TO USE THIS FILE
   - Hosting: upload it as index.html to a GitHub Pages repository (see README.md).
   - Photo: the profile picture is embedded in this file, so no separate image file is needed.
-  - Everything else is plain HTML, CSS, and JavaScript, with no build step and no external files.
+  - Everything else is plain HTML, CSS and JavaScript, with no build step and no external files.
 --><html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -1011,31 +1011,73 @@ function go(i){
 
 }
 function atEdge(p,direction){
- const available=p.scrollHeight-p.clientHeight;
- if(available<6)return true;
- return direction>0?p.scrollTop>=available-5:p.scrollTop<=5;
+ const available=Math.max(0,p.scrollHeight-p.clientHeight);
+ return available<=5 || (direction>0?p.scrollTop>=available-5:p.scrollTop<=5);
 }
+function scrollWithin(p,delta){
+ const max=Math.max(0,p.scrollHeight-p.clientHeight);
+ const before=p.scrollTop;
+ p.scrollTop=Math.max(0,Math.min(max,before+delta));
+ return Math.abs(p.scrollTop-before)>0.5;
+}
+function nestedScroller(target,p,dir){
+ let el=target instanceof Element?target:null;
+ while(el&&el!==p){
+   const css=getComputedStyle(el);
+   if(/auto|scroll/.test(css.overflowY)&&el.scrollHeight>el.clientHeight+5){
+     const remaining=dir>0?el.scrollHeight-el.clientHeight-el.scrollTop:el.scrollTop;
+     if(remaining>5)return true;
+   }
+   el=el.parentElement;
+ }
+ return false;
+}
+let edgeDirection=0,edgeArmed=false,edgeLast=0;
+function resetEdge(){accum=0;edgeArmed=false;edgeDirection=0;}
 window.addEventListener('wheel',e=>{
  const p=panels[current];
- if(e.target.closest('dialog,[role=dialog],.botpanel,.botlog,.modal'))return;
+ if(e.target instanceof Element&&e.target.closest('dialog,[role=dialog],.botpanel,.botlog,.modal'))return;
  const dir=Math.sign(e.deltaY);
  if(!dir)return;
- if(locked){e.preventDefault();return;}
- if(!atEdge(p,dir)){accum=0;if(current===1)return;}
-
- if((dir>0&&current===panels.length-1)||(dir<0&&current===0))return;
+ if(nestedScroller(e.target,p,dir))return;
+ // Panel scrolling is always the first priority. Never switch pages while
+ // there is still content to scroll in the current direction.
  e.preventDefault();
- accum+=e.deltaY;
- if(Math.abs(accum)>38){go(current+dir)}
+ if(locked)return;
+ const delta=e.deltaMode===1?e.deltaY*18:e.deltaMode===2?e.deltaY*p.clientHeight:e.deltaY;
+ if(!atEdge(p,dir)){
+   scrollWithin(p,delta);
+   resetEdge();
+   return;
+ }
+ if((dir>0&&current===panels.length-1)||(dir<0&&current===0)){resetEdge();return;}
+ // A deliberate further wheel gesture at the boundary advances the chapter.
+ // A short cooldown avoids trackpad momentum instantly skipping a page.
+ const now=performance.now();
+ if(!edgeArmed||edgeDirection!==dir||now-edgeLast>550){
+   edgeArmed=true;edgeDirection=dir;accum=0;
+ }
+ edgeLast=now;
+ accum+=Math.abs(delta);
+ if(accum>=65){resetEdge();go(current+dir);}
 },{passive:false});
 let start=null;
-window.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;start={y:e.touches[0].clientY,x:e.touches[0].clientX,at:Date.now()}},{passive:true});
+window.addEventListener('touchstart',e=>{
+ if(e.touches.length!==1)return;
+ const target=e.target;
+ if(target instanceof Element&&target.closest('dialog,[role=dialog],.botpanel,.botlog,.modal')){start=null;return;}
+ start={y:e.touches[0].clientY,x:e.touches[0].clientX,at:Date.now(),panel:current,
+       top:panels[current].scrollTop};
+},{passive:true});
 window.addEventListener('touchend',e=>{
- if(!start||locked)return;
+ if(!start||locked||start.panel!==current){start=null;return;}
  const dy=start.y-e.changedTouches[0].clientY,dx=start.x-e.changedTouches[0].clientX;
- if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.4&&atEdge(panels[current],Math.sign(dy))){
-   go(current+Math.sign(dy));
- }
+ const p=panels[current],dir=Math.sign(dy);
+ // Only turn pages if the swipe STARTED at the panel boundary.
+ // A swipe that scrolls to the end must not also change the page.
+ const max=Math.max(0,p.scrollHeight-p.clientHeight);
+ const beganAtEdge=max<=5||(dir>0?start.top>=max-5:start.top<=5);
+ if(Math.abs(dy)>75&&Math.abs(dy)>Math.abs(dx)*1.4&&beganAtEdge&&atEdge(p,dir))go(current+dir);
  start=null;
 },{passive:true});
 document.addEventListener('click',e=>{
@@ -1049,8 +1091,14 @@ document.addEventListener('click',e=>{
 });
 window.addEventListener('keydown',e=>{
  if(e.target.matches('input,textarea,select,button,[contenteditable]')||document.querySelector('#dd-game-modal[open]'))return;
- if(['PageDown','ArrowDown'].includes(e.key)){e.preventDefault();go(current+1)}
- if(['PageUp','ArrowUp'].includes(e.key)){e.preventDefault();go(current-1)}
+ const p=panels[current];
+ if(['PageDown','ArrowDown','PageUp','ArrowUp',' '].includes(e.key)){
+   const dir=['PageUp','ArrowUp'].includes(e.key)||(e.key===' '&&e.shiftKey)?-1:1;
+   const amount=['ArrowDown','ArrowUp'].includes(e.key)?90:p.clientHeight*.8;
+   e.preventDefault();
+   if(!atEdge(p,dir)){scrollWithin(p,dir*amount);resetEdge();}
+   else go(current+dir);
+ }
 });
 function clock(){
  const ps=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'numeric',second:'numeric',hour12:false}).formatToParts(new Date());
