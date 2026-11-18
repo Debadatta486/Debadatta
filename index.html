@@ -4,7 +4,7 @@
   HOW TO USE THIS FILE
   - Hosting: upload it as index.html to a GitHub Pages repository (see README.md).
   - Photo: the profile picture is embedded in this file, so no separate image file is needed.
-  - Everything else is plain HTML, CSS, and JavaScript, with no build step and no external files.
+  - Everything else is plain HTML, CSS and JavaScript, with no build step and no external files.
 --><html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -562,7 +562,8 @@ body.dd-game-open{overflow:hidden!important}
 .dd-id-hardware .dd-clip-metal{fill:url(#dd-metal-gradient);stroke:#6e7473;stroke-width:1.6}
 .dd-id-hardware .dd-clip-line{fill:none;stroke:#687371;stroke-width:3.5;stroke-linecap:round}
 .dd-id-hardware .dd-clip-highlight{fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;opacity:.95}
-.dd-card-onface-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(13,24,21,.84);color:#fff;border:1px solid #ffffff65;border-radius:4px;padding:7px 11px;font:700 11px/1.2 Arial,sans-serif;white-space:nowrap;box-shadow:0 2px 8px #0003;pointer-events:none}
+.dd-card-onface-hint{position:absolute;top:auto;bottom:62px;left:50%;transform:translateX(-50%);z-index:10;background:transparent;color:var(--ink,#20382e);border:0;border-radius:0;padding:5px 9px;font:700 12px/1.35 Arial,sans-serif;white-space:nowrap;box-shadow:none;pointer-events:none;text-align:center;letter-spacing:.01em}
+:root[data-theme="dark"] .dd-card-onface-hint{color:#d9eee1}
 .badge-scene>.card-hint{display:none!important}
 </style></head>
 <body id="top">
@@ -974,8 +975,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let current=0,locked=false,accum=0,lockTimer=null;
 // About Me contains a final illustrated section. Require a deliberate pause at its end.
 let aboutEdgeSince=0, aboutLastWheel=0, aboutGestureArmed=false;
+let aboutIdleTimer=0;
 const ABOUT_READ_PAUSE_MS=2000;
-function resetAboutGate(){aboutEdgeSince=0;aboutLastWheel=0;aboutGestureArmed=false;}
+function resetAboutGate(){aboutEdgeSince=0;aboutLastWheel=0;aboutGestureArmed=false;clearTimeout(aboutIdleTimer);}
 const dots=document.createElement('nav');dots.className='chapter-progress';dots.setAttribute('aria-label','Portfolio pages');
 panels.forEach((p,i)=>{
  const a=document.createElement('a');a.href='#'+p.id;a.title=labels[i];a.setAttribute('aria-label',labels[i]);
@@ -1024,11 +1026,17 @@ window.addEventListener('wheel',e=>{
  if(current===1 && dir>0){
    e.preventDefault();
    const now=performance.now();
-   if(!aboutEdgeSince){aboutEdgeSince=now;aboutLastWheel=now;aboutGestureArmed=false;accum=0;return;}
-   if(now-aboutEdgeSince<ABOUT_READ_PAUSE_MS){aboutLastWheel=now;accum=0;return;}
-   if(now-aboutLastWheel>300)aboutGestureArmed=true;
+   if(!aboutEdgeSince){aboutEdgeSince=now;aboutGestureArmed=false;}
+   // A pause at the end protects the illustration from trackpad momentum.
+   // Once the pause expires, a new wheel gesture advances; continuous scrolling
+   // also has a fail-safe so visitors cannot become trapped on this page.
+   const idleGap=now-aboutLastWheel;
+   if(now-aboutEdgeSince>=ABOUT_READ_PAUSE_MS && idleGap>260)aboutGestureArmed=true;
+   if(now-aboutEdgeSince>=3500)aboutGestureArmed=true;
    aboutLastWheel=now;
-   if(!aboutGestureArmed){accum=0;return;}
+   clearTimeout(aboutIdleTimer);
+   aboutIdleTimer=setTimeout(()=>{if(current===1 && aboutEdgeSince && performance.now()-aboutEdgeSince>=ABOUT_READ_PAUSE_MS)aboutGestureArmed=true;},280);
+   if(now-aboutEdgeSince<ABOUT_READ_PAUSE_MS || !aboutGestureArmed){accum=0;return;}
  }
  if((dir>0&&current===panels.length-1)||(dir<0&&current===0))return;
  e.preventDefault();
@@ -1056,7 +1064,7 @@ document.addEventListener('click',e=>{
  go(target);
 });
 window.addEventListener('keydown',e=>{
- if(e.target.matches('input,textarea,select,[contenteditable]'))return;
+ if(e.target.matches('input,textarea,select,button,[contenteditable]')||document.querySelector('#dd-game-modal[open]'))return;
  if(['PageDown','ArrowDown'].includes(e.key)){e.preventDefault();go(current+1)}
  if(['PageUp','ArrowUp'].includes(e.key)){e.preventDefault();go(current-1)}
 });
