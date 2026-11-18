@@ -4,7 +4,7 @@
   HOW TO USE THIS FILE
   - Hosting: upload it as index.html to a GitHub Pages repository (see README.md).
   - Photo: the profile picture is embedded in this file, so no separate image file is needed.
-  - Everything else is plain HTML, CSS, and JavaScript, with no build step and no external files.
+  - Everything else is plain HTML, CSS and JavaScript, with no build step and no external files.
 --><html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -585,7 +585,7 @@ html[data-theme=dark] #idcard .card-front .dd-card-onface-hint,body[data-theme=d
 #dd-pres-progress{height:100%;width:0;background:#c7e5bc}
 body.dd-presenting .swing-page-hint{display:none!important}
 @media(max-width:800px){#dd-watch-launch{font-size:11px;padding:7px 9px}}
-@media(prefers-reduced-motion:reduce){#dd-pres-progress{transition:none}}</style></head>
+@media(prefers-reduced-motion:reduce){#dd-pres-progress{transition:none}}</style><style id="dd-feedback-restoration-css">#chapter-contact .feedback-widget{display:block!important;max-width:540px;text-align:center;margin:38px auto 12px!important;position:static!important;transform:none!important}#chapter-contact .feedback-widget>p{margin-bottom:12px;color:var(--muted)}#chapter-contact .feedback-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}#chapter-contact .feedback-actions button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:11px 17px;cursor:pointer;font:inherit}#chapter-contact .feedback-actions button:hover{border-color:var(--accent)}#chapter-contact #feedback-panel{max-width:540px;margin:14px auto 36px;text-align:left}#chapter-contact #feedback-panel[hidden]{display:none!important}</style></head>
 <body id="top">
 <aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-career">Career</a><a href="#chapter-selected">Work</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-tools">Tools</a><a href="#chapter-approach">Approach</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Watch my portfolio presentation" id="dd-watch-launch" type="button">▶ Watch My Portfolio</button><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
 <main><section aria-label="Portfolio cover" class="chapter-cover" id="cover">
@@ -723,7 +723,7 @@ body.dd-presenting .swing-page-hint{display:none!important}
 <button class="btn mailbtn" type="button">Connect over email</button>
 <a aria-label="Open Debadatta Dutta's LinkedIn profile in a new tab" class="btn" href="https://www.linkedin.com/in/debadatta-dutta-6b522593/" rel="noopener noreferrer" target="_blank">LinkedIn profile</a>
 </div>
-</section></div></main>
+<div aria-label="Portfolio feedback" class="feedback-widget"><p>Was this portfolio helpful?</p><div class="feedback-actions"><button aria-label="Yes, this portfolio was helpful" class="feedback-icon" id="thumbs-up" title="Helpful" type="button">👍 <span>Helpful</span></button><button aria-label="This portfolio could be improved" class="feedback-icon" id="thumbs-down" title="Needs improvement" type="button">👎 <span>Could be better</span></button></div></div><form aria-label="Portfolio feedback form" class="feedback-panel" hidden="" id="feedback-panel"><h3 id="feedback-title">Share your feedback</h3><p id="feedback-prompt"></p><div class="feedback-options" id="feedback-options"></div><label for="feedback-comments">Additional comments (optional)</label><textarea id="feedback-comments" placeholder="Your suggestions" rows="3"></textarea><p aria-live="polite" id="feedback-status" role="status"></p><div class="footer-actions"><button type="submit">Prepare feedback email</button><button id="feedback-close" type="button">Close</button></div></form></section></div></main>
 <button aria-controls="bot" aria-expanded="false" class="botbtn" id="botbtn" type="button">Ask Debadatta</button>
 <div aria-label="Ask Debadatta" class="botpanel" hidden="" id="bot" role="dialog">
 <div class="bothead"><strong>Ask Debadatta</strong><button aria-label="Close" id="botx" type="button">×</button></div>
