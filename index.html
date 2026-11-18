@@ -570,9 +570,24 @@ body.dd-game-open{overflow:hidden!important}
 /* The ID badge is light in both site themes: use a consistently dark readable label. */
 #idcard .card-front .dd-card-onface-hint{position:relative!important;inset:auto!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;transform:none!important;display:block!important;align-self:center!important;width:max-content!important;max-width:calc(100% - 30px)!important;margin:16px auto 0!important;padding:2px 8px!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#17392d!important;-webkit-text-fill-color:#17392d!important;font:700 13px/1.45 'Space Grotesk',Arial,sans-serif!important;letter-spacing:.01em!important;text-align:center!important;text-shadow:none!important;opacity:1!important;visibility:visible!important;z-index:5!important;white-space:nowrap!important;pointer-events:none!important}
 html[data-theme=dark] #idcard .card-front .dd-card-onface-hint,body[data-theme=dark] #idcard .card-front .dd-card-onface-hint{color:#17392d!important;-webkit-text-fill-color:#17392d!important}
-</style></head>
+</style><style id="dd-presentation-style">body>main>.chapter-cover,body>main>.scroll-chapter{scroll-behavior:auto!important}
+#dd-watch-launch{border:1px solid currentColor;border-radius:999px;background:transparent;color:inherit;padding:7px 13px;font-size:12px;font-weight:700;white-space:nowrap}
+#dd-watch-launch:hover{background:var(--ink);color:var(--bg)}
+#dd-presentation-bar{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:9997;width:min(670px,calc(100% - 28px));background:#163b2e;color:#f5f4ed;border:1px solid #759b86;border-radius:18px;box-shadow:0 12px 45px #0006;padding:13px 16px;display:none;font:13px/1.4 Arial,sans-serif}
+#dd-presentation-bar.is-active{display:block}
+.dd-pres-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dd-pres-copy{flex:1;min-width:145px}
+.dd-pres-copy strong{display:block;font-size:14px}
+.dd-pres-copy span{display:block;font-size:11px;color:#c9dfd0;margin-top:3px}
+.dd-pres-button{border:1px solid #8bb49c;background:transparent;color:#fff;border-radius:999px;padding:9px 12px;cursor:pointer}
+.dd-pres-button:focus-visible{outline:2px solid white;outline-offset:2px}
+.dd-pres-track{height:5px;border-radius:9px;background:#527565;margin-top:12px;overflow:hidden}
+#dd-pres-progress{height:100%;width:0;background:#c7e5bc}
+body.dd-presenting .swing-page-hint{display:none!important}
+@media(max-width:800px){#dd-watch-launch{font-size:11px;padding:7px 9px}}
+@media(prefers-reduced-motion:reduce){#dd-pres-progress{transition:none}}</style></head>
 <body id="top">
-<aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-career">Career</a><a href="#chapter-selected">Work</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-tools">Tools</a><a href="#chapter-approach">Approach</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
+<aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-career">Career</a><a href="#chapter-selected">Work</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-tools">Tools</a><a href="#chapter-approach">Approach</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Watch 90-second portfolio presentation" id="dd-watch-launch" type="button">▶ Watch My Portfolio</button><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
 <main><section aria-label="Portfolio cover" class="chapter-cover" id="cover">
 <div class="cover-top"><span>TECHNICAL WRITING / DEVELOPER DOCUMENTATION / DOCUMENTATION ENGINEERING</span></div>
 <div class="cover-layout"><div class="cover-copy"><p class="cover-kicker">DEBADATTA DUTTA · PORTFOLIO</p><h1>Making<br/>complexity<br/><em>clear.</em></h1><p>Documentation that connects complex products with the people who use them.</p><a class="cover-explore" href="#about">Scroll to explore ↓</a></div>
@@ -1015,6 +1030,7 @@ function atEdge(p,direction){
  return available<=5 || (direction>0?p.scrollTop>=available-5:p.scrollTop<=5);
 }
 function scrollWithin(p,delta){
+ p.style.scrollBehavior="auto";
  const max=Math.max(0,p.scrollHeight-p.clientHeight);
  const before=p.scrollTop;
  p.scrollTop=Math.max(0,Math.min(max,before+delta));
@@ -1032,8 +1048,8 @@ function nestedScroller(target,p,dir){
  }
  return false;
 }
-let edgeDirection=0,edgeArmed=false,edgeLast=0;
-function resetEdge(){accum=0;edgeArmed=false;edgeDirection=0;}
+let edgeDirection=0,edgeArmed=false,edgeLast=0,edgeReachedAt=0;
+function resetEdge(){accum=0;edgeArmed=false;edgeDirection=0;edgeReachedAt=0;}
 window.addEventListener('wheel',e=>{
  const p=panels[current];
  if(e.target instanceof Element&&e.target.closest('dialog,[role=dialog],.botpanel,.botlog,.modal'))return;
@@ -1048,6 +1064,7 @@ window.addEventListener('wheel',e=>{
  if(!atEdge(p,dir)){
    scrollWithin(p,delta);
    resetEdge();
+   // Even when this event reaches the boundary, it never turns the page.
    return;
  }
  if((dir>0&&current===panels.length-1)||(dir<0&&current===0)){resetEdge();return;}
@@ -1055,11 +1072,11 @@ window.addEventListener('wheel',e=>{
  // A short cooldown avoids trackpad momentum instantly skipping a page.
  const now=performance.now();
  if(!edgeArmed||edgeDirection!==dir||now-edgeLast>550){
-   edgeArmed=true;edgeDirection=dir;accum=0;
+   edgeArmed=true;edgeDirection=dir;accum=0;edgeReachedAt=now;
  }
  edgeLast=now;
  accum+=Math.abs(delta);
- if(accum>=65){resetEdge();go(current+dir);}
+ if(accum>=75&&now-edgeReachedAt>=90){resetEdge();go(current+dir);}
 },{passive:false});
 let start=null;
 window.addEventListener('touchstart',e=>{
@@ -1100,6 +1117,12 @@ window.addEventListener('keydown',e=>{
    else go(current+dir);
  }
 });
+window.DDPortfolioPages={
+ get current(){return current;},
+ get locked(){return locked;},
+ get panels(){return panels;},
+ go(index){if(locked)return false;go(index);return true;}
+};
 function clock(){
  const ps=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'numeric',second:'numeric',hour12:false}).formatToParts(new Date());
  const n=t=>Number(ps.find(p=>p.type===t)?.value||0),h=n('hour'),m=n('minute'),s=n('second');
@@ -1147,5 +1170,76 @@ if(action==='restart'){step=0;answers=[];finished=false;render();content.scrollI
 if(action==='close')close();
 });
 })();
-</script></body>
+</script><script id="dd-presentation-controller">(()=>{
+'use strict';
+const api=window.DDPortfolioPages;
+const launch=document.getElementById('dd-watch-launch');
+if(!api||!launch)return;
+const chapters=[
+ ['Making complexity clear.','A technical writer focused on making complex products easier to use.',8],
+ ['About Me','Meet the person behind the documentation.',10],
+ ['Career Journey','Experience across technical writing and documentation leadership.',12],
+ ['Selected Work','Explore practical documentation samples and projects.',13],
+ ['Innovation & Impact','Documentation discovery, quality, and measurable outcomes.',12],
+ ['Tools & Technologies','Tools that support scalable documentation workflows.',10],
+ ['Approach & Strengths','Clarity, collaboration, and a playable documentation challenge.',11],
+ ['Domains & Standards','Working across product domains and documentation standards.',8],
+ ['Let’s Connect','Explore the full portfolio or get in touch.',6]
+];
+const total=chapters.reduce((n,c)=>n+c[2],0)*1000;
+const bar=document.createElement('div');bar.id='dd-presentation-bar';bar.setAttribute('role','region');bar.setAttribute('aria-label','Portfolio presentation controls');
+bar.innerHTML='<div class="dd-pres-line"><div class="dd-pres-copy"><strong id="dd-pres-title"></strong><span id="dd-pres-caption"></span></div><span id="dd-pres-time" aria-live="off">00:00 / 01:30</span><button class="dd-pres-button" id="dd-pres-pause" type="button">Pause</button><button class="dd-pres-button" id="dd-pres-explore" type="button">Explore here</button><button class="dd-pres-button" id="dd-pres-exit" type="button">Exit ✕</button></div><div class="dd-pres-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="0" aria-valuemax="90" aria-valuenow="0" id="dd-pres-track"><div id="dd-pres-progress"></div></div>';
+document.body.appendChild(bar);
+let running=false,paused=false,elapsed=0,last=0,raf=0,activeIndex=-1;
+const title=bar.querySelector('#dd-pres-title'),caption=bar.querySelector('#dd-pres-caption'),timer=bar.querySelector('#dd-pres-time'),progress=bar.querySelector('#dd-pres-progress'),track=bar.querySelector('#dd-pres-track'),pauseBtn=bar.querySelector('#dd-pres-pause');
+const offsets=[0];for(const c of chapters)offsets.push(offsets.at(-1)+c[2]*1000);
+const clock=ms=>{const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');};
+function stop(){running=false;paused=false;cancelAnimationFrame(raf);bar.classList.remove('is-active');document.body.classList.remove('dd-presenting');launch.setAttribute('aria-pressed','false');}
+function showChapter(i){activeIndex=i;title.textContent=chapters[i][0];caption.textContent=chapters[i][1];}
+function tick(now){
+ if(!running)return;
+ if(!last)last=now;
+ const delta=Math.min(100,now-last);last=now;
+ if(!paused){
+  elapsed=Math.min(total,elapsed+delta);
+  let i=chapters.length-1;for(let k=0;k<chapters.length;k++){if(elapsed<offsets[k+1]){i=k;break;}}
+  // Avoid advancing the presentation timeline while the swing transition is locked.
+  if(i!==api.current){
+    if(!api.locked)api.go(i);
+  }
+  if(activeIndex!==i)showChapter(i);
+  const p=api.panels[api.current];
+  if(p){
+   const max=Math.max(0,p.scrollHeight-p.clientHeight);
+   const duration=chapters[api.current][2]*1000;
+   const local=Math.max(0,Math.min(1,(elapsed-offsets[api.current])/duration));
+   // Show the top briefly, then traverse all content, then hold the bottom.
+   const fraction=Math.max(0,Math.min(1,(local-.13)/.70));
+   p.scrollTop=max*fraction;
+  }
+  timer.textContent=clock(elapsed)+' / '+clock(total);
+  progress.style.width=(elapsed/total*100)+'%';
+  track.setAttribute('aria-valuenow',String(Math.round(elapsed/1000)));
+  if(elapsed>=total){pauseBtn.textContent='Replay';paused=true;}
+ }
+ raf=requestAnimationFrame(tick);
+}
+function start(){
+ stop();elapsed=0;last=0;activeIndex=-1;running=true;paused=false;
+ document.body.classList.add('dd-presenting');bar.classList.add('is-active');launch.setAttribute('aria-pressed','true');pauseBtn.textContent='Pause';
+ if(api.current!==0&&!api.locked)api.go(0);
+ showChapter(0);raf=requestAnimationFrame(tick);
+}
+launch.addEventListener('click',start);
+bar.querySelector('#dd-pres-exit').addEventListener('click',stop);
+bar.querySelector('#dd-pres-explore').addEventListener('click',stop);
+pauseBtn.addEventListener('click',()=>{
+ if(elapsed>=total){start();return;}
+ paused=!paused;last=0;pauseBtn.textContent=paused?'Resume':'Pause';
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&running)stop();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&running&&!paused){paused=true;pauseBtn.textContent='Resume';}});
+window.addEventListener('wheel',e=>{if(running&&!paused&&!(e.target instanceof Element&&e.target.closest('#dd-presentation-bar'))){paused=true;pauseBtn.textContent='Resume';}},{passive:true});
+window.addEventListener('touchstart',e=>{if(running&&!paused&&!(e.target instanceof Element&&e.target.closest('#dd-presentation-bar'))){paused=true;pauseBtn.textContent='Resume';}},{passive:true});
+})();</script></body>
 </html>
