@@ -661,6 +661,51 @@ body.dd-presenting .swing-page-hint{display:none!important}
   #chapter-selected .dd-doc-case > h3 {animation:none;background-position:45% 0}
 }
 </style>
+<style id="portfolio-layout-refinement">
+/* November 2026: focused visual corrections. Keep all existing interactions. */
+#chapter-selected .dd-case-intro{
+  box-sizing:border-box!important;width:calc(100% - 2rem)!important;
+  max-width:1040px!important;margin:2rem auto 1.15rem!important;
+  padding:1.2rem 1.55rem!important;display:block!important;
+  min-height:0!important;height:auto!important;
+}
+#chapter-selected .dd-case-intro h3{margin:.45rem 0 .5rem!important}
+#chapter-selected .dd-case-intro p{max-width:none!important;margin:0!important;line-height:1.55!important}
+#chapter-selected .dd-doc-case,#chapter-selected .dd-api-case{max-width:1040px!important;width:calc(100% - 2rem)!important;box-sizing:border-box!important}
+#chapter-selected .dd-api-case > h3,
+#chapter-selected .dd-doc-case > h3,
+#chapter-selected .dd-case-intro > h3{
+  background:linear-gradient(105deg,#2465af 0%,#00a99b 25%,#76a54c 50%,#8b64be 75%,#2465af 100%)!important;
+  background-size:350% 100%!important;-webkit-background-clip:text!important;
+  background-clip:text!important;-webkit-text-fill-color:transparent!important;
+  color:transparent!important;animation:cover-gradient 9s ease-in-out infinite alternate!important;
+  width:fit-content;max-width:100%;
+}
+/* Quality cards: tighter without hiding badges, illustrations or descriptions. */
+#quality .grid{gap:14px!important;margin-top:18px!important;align-items:start!important}
+#quality .grid>.card{height:auto!important;min-height:0!important;
+ padding:18px 20px!important;gap:8px!important;align-self:start!important}
+#quality .grid>.card .quality-icon{margin:0 0 2px!important}
+#quality .grid>.card .tile-badge{margin:0!important}
+#quality .grid>.card h3{margin:2px 0 0!important;line-height:1.2!important}
+#quality .grid>.card p{margin:0!important;line-height:1.45!important}
+/* Tools: retain all chips and icons, reduce padding and vertical whitespace. */
+#skills .skill-panel{height:auto!important;min-height:0!important;
+ padding:17px 19px!important;align-self:start!important}
+#skills .skill-heading{margin-bottom:11px!important;gap:10px!important}
+#skills .skill-symbol{width:36px!important;height:36px!important;flex-basis:36px!important}
+#skills .chips{gap:7px!important;margin:0!important}
+#skills .chips>span{padding:7px 10px!important;line-height:1.2!important}
+@media(max-width:700px){
+ #chapter-selected .dd-case-intro{width:100%!important;padding:1rem!important}
+ #chapter-selected .dd-doc-case,#chapter-selected .dd-api-case{width:100%!important}
+ #quality .grid>.card{padding:16px!important}
+ #skills .skill-panel{padding:16px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #chapter-selected .dd-api-case > h3,#chapter-selected .dd-doc-case > h3,#chapter-selected .dd-case-intro > h3{animation:none!important}
+}
+</style>
 </head>
 <body id="top">
 <aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-selected">Work</a><a href="#chapter-career">Career</a><a href="#chapter-approach">Approach</a><a href="#chapter-tools">Tools</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Watch my portfolio presentation" id="dd-watch-launch" type="button">▶ Watch My Portfolio</button><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
