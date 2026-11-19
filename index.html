@@ -82,6 +82,18 @@ main{width:100%;max-width:none;padding:0}.new-hero{min-height:720px;position:rel
 .visual-tile-copy p{margin:0;color:var(--muted);font-size:14px}
 @media(max-width:760px){.visual-grid{grid-template-columns:1fr}.visual-gallery{padding:46px 20px}.gallery-heading{display:block}.gallery-heading h2{margin-top:10px}.lanyard{top:-135px}.card-hint{bottom:0;font-size:12px}.identity-card{width:min(300px,85vw)}.site-header .icon-button{padding:8px 10px}.theme-label{display:inline}.header-actions{gap:6px}}
 @media(max-width:380px){.theme-label,.audio-text{font-size:10px}.site-header{gap:6px;padding:0 10px}}
+
+/* Compact third innovation: self-initiated browser testing */
+#chapter-innovation .dd-browser-case{max-width:1040px;margin:2.5rem auto 0;padding:1.4rem 1.6rem;border:1px solid rgba(130,160,170,.3);border-radius:20px;background:rgba(35,70,60,.16)}
+#chapter-innovation .dd-browser-case .section-kicker{margin-bottom:.85rem;color:#91dbb3;letter-spacing:.11em}
+#chapter-innovation .dd-browser-head{display:flex;gap:1.5rem;align-items:flex-start;justify-content:space-between}
+#chapter-innovation .dd-browser-head h3{font-size:clamp(1.4rem,2.5vw,2rem);margin:0 0 .75rem}
+#chapter-innovation .dd-browser-head p{margin:.45rem 0;line-height:1.6;max-width:80ch}
+#chapter-innovation .dd-browser-icon{flex:0 0 46px;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:rgba(126,213,173,.17);color:#91dbb3;font-size:1.65rem}
+#chapter-innovation .dd-browser-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+#chapter-innovation .dd-browser-tags span{border:1px solid rgba(130,160,170,.35);border-radius:100px;padding:.32rem .7rem;font-size:.83rem}
+#chapter-innovation .dd-browser-disclosure{font-size:.82rem;opacity:.75;margin:.85rem 0 0}
+@media(max-width:600px){#chapter-innovation .dd-browser-case{padding:1.1rem}#chapter-innovation .dd-browser-icon{display:none}}
 </style>
 <style id="section-layout-fixes">
 #samples .grid,#quality .grid,#domains .grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;align-items:stretch;margin-top:28px}
@@ -765,7 +777,7 @@ Administrators can view updated workspace
 settings in the fictional Workspace Console.</code></pre></div></div></div>
 <p class="dd-mdx-footnote">Fictional source and generated output, modeled on the demonstrated workflow. Only the two selected products generate MDX blocks. The example does not connect to Google Docs or execute the internal converter. Source code and implementation details are available on request.</p>
 </div><p class="dd-release-outcome"><strong>Documentation engineering impact:</strong> Converts a manual, repetitive publishing task into a guided, product-specific MDX generation workflow. The converter was recently implemented and is in its early stages of adoption. Time savings have therefore not yet been quantified; its impact on documentation efficiency will be evaluated over subsequent release cycles.</p>
-</section></div><div class="scroll-chapter" data-page-title="Selected Work" id="chapter-selected"><div class="chapter-heading"><span class="chapter-eyebrow">CHAPTER 04 / 09</span><h2 class="chapter-display-title">Selected Work</h2></div><section class="editorial-section" data-chapter="work" id="documents">
+</section><section aria-label="Portfolio quality and browser testing project" class="dd-browser-case"><div class="dd-browser-inner"><div class="section-kicker">03 / PERSONAL ENGINEERING PROJECT</div><div class="dd-browser-head"><div><h3>Portfolio Quality &amp; Browser Testing</h3><p>Built an automated browser-testing workflow using Playwright, Chromium, and GitHub Actions to validate chapter navigation, desktop and mobile interactions, the interactive documentation game, contact feedback, and JavaScript runtime behaviour.</p><p class="dd-browser-focus"><strong>Focus:</strong> Regression prevention, functional reliability, and cross-device usability.</p></div><div aria-hidden="true" class="dd-browser-icon">✓</div></div><div class="dd-browser-tags"><span>Playwright</span><span>Chromium</span><span>GitHub Actions</span></div><p class="dd-browser-disclosure">Self-initiated portfolio engineering project, separate from employment experience.</p></div></section></div><div class="scroll-chapter" data-page-title="Selected Work" id="chapter-selected"><div class="chapter-heading"><span class="chapter-eyebrow">CHAPTER 04 / 09</span><h2 class="chapter-display-title">Selected Work</h2></div><section class="editorial-section" data-chapter="work" id="documents">
 <div class="section-kicker">DEBADATTA DUTTA / DOCUMENTS</div><h2 class="chapter-duplicate-heading">My Work</h2>
 <p class="section-lead">I create documentation that answers real user questions, from first-use guidance to detailed reference content.</p>
 <div class="grid">
@@ -852,7 +864,7 @@ settings in the fictional Workspace Console.</code></pre></div></div></div>
 <li><h3>Publish and check the output</h3><p>Align publication with product releases, then review the rendered documentation to confirm that links, code samples, navigation, and formatting work as expected.</p></li>
 <li><h3>Review feedback and improve</h3><p>Use customer and internal feedback to identify content gaps, trace documentation defects to root causes, and improve both the content and the workflow.</p></li>
 </ol>
-<div class="group"><h3>Quality &amp; browser testing — portfolio project</h3><p>For this portfolio, I implemented Playwright tests running in Chromium through GitHub Actions. The checks cover chapter navigation, desktop and mobile interactions, the interactive documentation game, contact feedback, and JavaScript runtime errors. This is a personal project, separate from my employment experience. </p></div></section><section class="editorial-section" data-chapter="experience" id="documentation-leadership">
+</section><section class="editorial-section" data-chapter="experience" id="documentation-leadership">
 <div class="section-kicker">DEBADATTA DUTTA / DOCUMENTATION-LEADERSHIP</div><h2 class="chapter-duplicate-heading">How I lead documentation</h2>
 <p class="section-lead">I connect content strategy, delivery, and quality so documentation supports user needs and product outcomes.</p>
 <ol class="steps">
