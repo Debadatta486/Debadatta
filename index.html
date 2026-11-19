@@ -44,6 +44,25 @@ main{width:100%;max-width:none;padding:0}.new-hero{min-height:720px;position:rel
 .project-access-note{margin-top:20px;padding:15px 17px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font-size:.91rem;line-height:1.65}.project-access-note strong{display:block;margin-bottom:3px}.project-access-note a{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 
 .project-access-note p{margin:0 0 12px}.project-access-note small{display:block;margin-top:9px;opacity:.75;font-size:.76rem}.repo-action-links{display:flex;flex-wrap:wrap;gap:9px}.repo-action-links a{display:inline-flex;align-items:center;justify-content:center;min-height:41px;padding:8px 13px;text-decoration:none;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font-size:.84rem}.repo-action-links a:first-child{background:var(--accent);border-color:var(--accent);color:var(--inverse)}.repo-action-links a:hover{transform:translateY(-1px)}@media(max-width:480px){.repo-action-links a{width:100%}}
+
+/* Chapter 03: keep supporting text and separators clear of project tiles. */
+#chapter-innovation .featured-section > .section-intro {margin-bottom:2.1rem!important;line-height:1.7}
+#chapter-innovation .project-feature {margin-top:1.8rem!important}
+#chapter-innovation .dd-unified-video {margin-top:2.5rem!important}
+#chapter-innovation .dd-release-case {margin-top:3.5rem!important;clear:both}
+#chapter-innovation .dd-release-case .section-kicker {margin-bottom:1.15rem!important}
+#chapter-innovation .dd-release-case .dd-release-outcome {margin-top:1.25rem!important;padding-top:.35rem;line-height:1.7}
+#chapter-innovation .dd-release-case p {line-height:1.7}
+/* Chapter 04: balanced sample tiles, including the two-card final row. */
+#chapter-selected #samples > .grid {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch;gap:1.15rem}
+#chapter-selected #samples > .grid > .tile {grid-column:span 2;min-width:0;height:auto!important;min-height:0!important;display:flex;flex-direction:column;align-self:stretch;justify-content:flex-start}
+#chapter-selected #samples > .grid > .tile:nth-last-child(2):nth-child(4),
+#chapter-selected #samples > .grid > .tile:last-child:nth-child(5) {grid-column:span 3}
+#chapter-selected #samples > .grid > .tile .sample-photo {width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;flex-shrink:0}
+#chapter-selected #samples > .grid > .tile p {margin-bottom:0}
+@media(max-width:800px){#chapter-selected #samples > .grid > .tile {grid-column:span 3!important}}
+@media(max-width:520px){#chapter-selected #samples > .grid > .tile {grid-column:1/-1!important}}
+
 </style>
 <style id="portfolio-visual-polish">
 /* Badge: clean ID-card silhouette and physically centered strap */
