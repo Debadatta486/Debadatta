@@ -718,6 +718,57 @@ body.dd-presenting .swing-page-hint{display:none!important}
  #chapter-selected .dd-api-case > h3,#chapter-selected .dd-doc-case > h3,#chapter-selected .dd-case-intro > h3{animation:none!important}
 }
 </style>
+<style id="dd-mobile-bot-layout">
+/* Mobile chatbot: compact launcher and viewport-safe conversation panel. */
+@media (max-width: 600px) {
+  #botbtn.botbtn {
+    right: max(12px, env(safe-area-inset-right, 0px)) !important;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: grid !important;
+    place-items: center !important;
+    font-size: 0 !important;
+    line-height: 1 !important;
+  }
+  #botbtn.botbtn::before {
+    content: "";
+    width: 23px;
+    height: 23px;
+    display: block;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+  #botbtn.botbtn[aria-expanded="true"] { display: none !important; }
+  #bot.botpanel {
+    box-sizing: border-box !important;
+    left: 10px !important;
+    right: 10px !important;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: min(580px, calc(100dvh - 24px - env(safe-area-inset-bottom, 0px))) !important;
+  }
+}
+@media (max-width: 600px) and (max-height: 450px) {
+  #botbtn.botbtn { bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important; }
+}
+</style>
+<style id="dd-header-button-typography-alignment">
+/* Match the watch button label to the sound control on laptop/desktop.
+   Preserve the existing compact mobile header and chatbot breakpoints. */
+@media (min-width: 801px) {
+  .site-header #dd-watch-launch {
+    font-size: 14px;
+    line-height: normal;
+    font-family: inherit;
+  }
+}
+</style>
 </head>
 <body id="top">
 <aside class="side" style="display:none!important"><nav><ul><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#documents">Work</a></li><li><a href="#samples">Samples</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav></aside><header class="site-header"><a aria-label="Back to top" class="site-brand" href="#top" title="Back to top"><span class="brand-mark">DD</span></a><nav aria-label="Main navigation" class="main-nav"><a href="#cover">Cover</a><a href="#chapter-about">About</a><a href="#chapter-innovation">Innovation</a><a href="#chapter-selected">Work</a><a href="#chapter-career">Career</a><a href="#chapter-approach">Approach</a><a href="#chapter-tools">Tools</a><a href="#chapter-domains">Domains</a><a href="#chapter-contact">Contact</a></nav><div class="header-actions"><button aria-label="Watch my portfolio presentation" id="dd-watch-launch" type="button">▶ Watch My Portfolio</button><button aria-label="Play ambient sound" class="icon-button" id="audio-toggle" title="Ambient sound off" type="button">♫ <span class="audio-text">Sound off</span></button><button aria-label="Toggle light and dark mode" class="theme icon-button" id="theme" title="Toggle light and dark mode" type="button"><span aria-hidden="true" id="ticon">◐</span></button><a class="header-contact" href="#contact">Let's talk ↗</a></div></header>
@@ -904,7 +955,7 @@ settings in the fictional Workspace Console.</code></pre></div></div></div>
 <a aria-label="Open Debadatta Dutta's LinkedIn profile in a new tab" class="btn" href="https://www.linkedin.com/in/debadatta-dutta-6b522593/" rel="noopener noreferrer" target="_blank">LinkedIn profile</a>
 </div>
 <div aria-label="Portfolio feedback" class="feedback-widget"><p>Was this portfolio helpful?</p><div class="feedback-actions"><button aria-label="Yes, this portfolio was helpful" class="feedback-icon" id="thumbs-up" title="Helpful" type="button">👍 <span>Helpful</span></button><button aria-label="This portfolio could be improved" class="feedback-icon" id="thumbs-down" title="Needs improvement" type="button">👎 <span>Could be better</span></button></div></div><form aria-label="Portfolio feedback form" class="feedback-panel" hidden="" id="feedback-panel"><h3 id="feedback-title">Share your feedback</h3><p id="feedback-prompt"></p><div class="feedback-options" id="feedback-options"></div><label for="feedback-comments">Additional comments (optional)</label><textarea id="feedback-comments" placeholder="Your suggestions" rows="3"></textarea><p aria-live="polite" id="feedback-status" role="status"></p><div class="footer-actions"><button type="submit">Prepare feedback email</button><button id="feedback-close" type="button">Close</button></div></form></section></div></main>
-<button aria-controls="bot" aria-expanded="false" class="botbtn" id="botbtn" type="button">Ask Debadatta</button>
+<button aria-controls="bot" aria-expanded="false" class="botbtn" id="botbtn" aria-label="Ask Debadatta" title="Ask Debadatta" type="button">Ask Debadatta</button>
 <div aria-label="Ask Debadatta" class="botpanel" hidden="" id="bot" role="dialog">
 <div class="bothead"><strong>Ask Debadatta</strong><button aria-label="Close" id="botx" type="button">×</button></div>
 <div aria-live="polite" class="botlog" id="botlog" role="log"></div>
