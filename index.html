@@ -1166,7 +1166,10 @@ hardware.innerHTML=`<defs><linearGradient id="dd-metal-gradient" x1="0" x2="1"><
 <path class="dd-clip-highlight" d="M30 22 Q25 28 31 34"/>
 <path class="dd-clip-line" d="M36 36 C17 36 20 55 33 58 C43 61 48 51 42 47"/>
 <path class="dd-clip-highlight" d="M30 40 C24 44 26 52 31 54"/>
-<!-- The reinforced slot is rendered on the badge itself, not on the moving clasp. -->`;
+<!-- The lower steel loop visibly passes through the fixed slot in the card.
+     It is part of the clasp, while the dark reinforced slot belongs to the badge. -->
+<ellipse class="dd-clip-line" cx="35" cy="64" rx="8" ry="11"/>
+<path class="dd-clip-highlight" d="M29 59 Q27 65 30 70"/>`;
 // The clasp hangs from the lanyard, not from the rotating card face.
 // Keeping it in the scene prevents the metal from flipping rigidly with the badge.
 scene.appendChild(hardware);
