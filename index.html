@@ -574,8 +574,8 @@ body.dd-game-open{overflow:hidden!important}
 @media(max-width:700px){.dd-game-invite{grid-template-columns:1fr}.dd-game-invite-art{display:none}.dd-game-summary{grid-template-columns:1fr}#dd-game-modal{padding:8px}.dd-game-shell{margin:0 auto}}
 @media(prefers-reduced-motion:reduce){#dd-game-open:hover{transform:none}}
 </style><style id="dd-clip-polish">
-/* Realistic hardware between fabric and badge; the original threaded slot is removed. */
-.badge-scene .id-lanyard-slot{display:none!important}
+/* Metal clasp moves separately; the slot remains a permanent part of the badge. */
+.badge-scene .id-lanyard-slot{display:block!important}
 .badge-scene .identity-card{overflow:visible!important}
 .dd-id-hardware{position:absolute;left:50%;top:-52px;transform:translateX(-50%);width:70px;height:80px;z-index:12;pointer-events:none;overflow:visible;filter:drop-shadow(0 2px 2px #0005)}
 .dd-id-hardware .dd-clip-metal{fill:url(#dd-metal-gradient);stroke:#6e7473;stroke-width:1.6}
@@ -584,7 +584,7 @@ body.dd-game-open{overflow:hidden!important}
 .dd-card-onface-hint{position:absolute;top:auto;bottom:62px;left:50%;transform:translateX(-50%);z-index:10;background:transparent;color:var(--ink,#20382e);border:0;border-radius:0;padding:5px 9px;font:700 12px/1.35 Arial,sans-serif;white-space:nowrap;box-shadow:none;pointer-events:none;text-align:center;letter-spacing:.01em}
 :root[data-theme="dark"] .dd-card-onface-hint{color:#d9eee1}
 .badge-scene>.card-hint{display:none!important}
-</style><style id="dd-clip-natural-motion">
+</style><style id="dd-clip-entrance-sync">#chapter-about .badge-scene > .dd-id-hardware{visibility:hidden!important;opacity:0!important}#chapter-about .badge-scene.badge-entrance-started > .dd-id-hardware{visibility:visible!important;opacity:1!important}</style><style id="dd-clip-natural-motion">
 /* The metal swivel is an independently moving part, positioned above the badge. */
 .badge-scene > .dd-id-hardware{transform-origin:50% 18px;will-change:transform;backface-visibility:visible;}
 @media(prefers-reduced-motion:reduce){.badge-scene > .dd-id-hardware{will-change:auto;}}
@@ -1166,10 +1166,7 @@ hardware.innerHTML=`<defs><linearGradient id="dd-metal-gradient" x1="0" x2="1"><
 <path class="dd-clip-highlight" d="M30 22 Q25 28 31 34"/>
 <path class="dd-clip-line" d="M36 36 C17 36 20 55 33 58 C43 61 48 51 42 47"/>
 <path class="dd-clip-highlight" d="M30 40 C24 44 26 52 31 54"/>
-<!-- Reinforced badge eyelet -->
-<rect class="dd-clip-metal" x="19" y="53" width="32" height="13" rx="6.5"/>
-<rect x="25" y="57" width="20" height="5" rx="2.5" fill="#334039"/>
-<path class="dd-clip-highlight" d="M22 56 H48"/>`;
+<!-- The reinforced slot is rendered on the badge itself, not on the moving clasp. -->`;
 // The clasp hangs from the lanyard, not from the rotating card face.
 // Keeping it in the scene prevents the metal from flipping rigidly with the badge.
 scene.appendChild(hardware);
