@@ -584,6 +584,10 @@ body.dd-game-open{overflow:hidden!important}
 .dd-card-onface-hint{position:absolute;top:auto;bottom:62px;left:50%;transform:translateX(-50%);z-index:10;background:transparent;color:var(--ink,#20382e);border:0;border-radius:0;padding:5px 9px;font:700 12px/1.35 Arial,sans-serif;white-space:nowrap;box-shadow:none;pointer-events:none;text-align:center;letter-spacing:.01em}
 :root[data-theme="dark"] .dd-card-onface-hint{color:#d9eee1}
 .badge-scene>.card-hint{display:none!important}
+</style><style id="dd-clip-natural-motion">
+/* The metal swivel is an independently moving part, positioned above the badge. */
+.badge-scene > .dd-id-hardware{transform-origin:50% 18px;will-change:transform;backface-visibility:visible;}
+@media(prefers-reduced-motion:reduce){.badge-scene > .dd-id-hardware{will-change:auto;}}
 </style><style id="dd-about-navigation-and-hint-fix">/* Match the normal page navigation: no special About-page waiting period. */
 #chapter-about::after{content:none!important;display:none!important}
 /* The ID badge is light in both site themes: use a consistently dark readable label. */
@@ -1166,11 +1170,15 @@ hardware.innerHTML=`<defs><linearGradient id="dd-metal-gradient" x1="0" x2="1"><
 <rect class="dd-clip-metal" x="19" y="53" width="32" height="13" rx="6.5"/>
 <rect x="25" y="57" width="20" height="5" rx="2.5" fill="#334039"/>
 <path class="dd-clip-highlight" d="M22 56 H48"/>`;
-card.appendChild(hardware);
+// The clasp hangs from the lanyard, not from the rotating card face.
+// Keeping it in the scene prevents the metal from flipping rigidly with the badge.
+scene.appendChild(hardware);
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 let x=0,y=0,vx=0,vy=0,held=false,dragged=false,down=null,frame=0,raf=0,suppress=false;
 let entrancePlayed=false;
+let clipAngle=0,clipVelocity=0,clipYaw=0,clipYawVelocity=0,flipImpulse=0;
+const hardwareWidth=70,hardwareHeight=80;
 function playCardEntrance(){
  if(entrancePlayed)return;
  entrancePlayed=true;
@@ -1191,9 +1199,22 @@ function renderLanyard(){
  const width=sc.width,origin=width/2,top=135;
  svg.setAttribute('viewBox',`0 0 ${width} 570`);
  // Anchor the fabric to the actual slot, not to the card's outer bounding box.
- const slotRect=hardware.getBoundingClientRect();
- const ex=slotRect.left+slotRect.width/2-sc.left;
- const ey=slotRect.top+8-sc.top+top;
+ // The attachment follows the badge's top-center, while the swivel rotates independently.
+ // Calculate from the card's geometry, rather than the clasp's own transformed bounds.
+ const ex=cr.left+cr.width/2-sc.left;
+ const cardTop=cr.top-sc.top;
+ const ey=cardTop-44+top;
+ const targetAngle=clamp(x*.055+vx*.75,-22,22);
+ clipVelocity+=(targetAngle-clipAngle)*.12;
+ clipVelocity*=.77;
+ clipAngle+=clipVelocity;
+ clipYawVelocity+=(flipImpulse-clipYaw)*.13;
+ clipYawVelocity*=.78;
+ clipYaw+=clipYawVelocity;
+ flipImpulse*=.88;
+ hardware.style.left=`${ex.toFixed(2)}px`;
+ hardware.style.top=`${(cardTop-52).toFixed(2)}px`;
+ hardware.style.transform=`translateX(-50%) rotate(${clipAngle.toFixed(2)}deg) rotateY(${clipYaw.toFixed(2)}deg)`;
 
  // Fixed upper attachment, curved flexible fabric, lower attachment at card slot.
  const dx=ex-origin,dist=Math.hypot(dx,ey);
@@ -1208,7 +1229,7 @@ function tick(){
   vx+=(0-x)*.023;vy+=(0-y)*.040;
   vx*=.968;vy*=.917;
   x+=vx;y+=vy;
-  if(Math.abs(x)+Math.abs(y)+Math.abs(vx)+Math.abs(vy)<.22 && frame>150){x=y=vx=vy=0;renderLanyard();raf=0;return;}
+  if(Math.abs(x)+Math.abs(y)+Math.abs(vx)+Math.abs(vy)+Math.abs(clipVelocity)+Math.abs(clipYawVelocity)+Math.abs(clipYaw)+Math.abs(flipImpulse)<.22 && frame>150){x=y=vx=vy=0;renderLanyard();raf=0;return;}
  }
  renderLanyard();frame++;raf=requestAnimationFrame(tick);
 }
@@ -1230,7 +1251,7 @@ function release(){if(!held)return;held=false;down=null;if(!raf)raf=requestAnima
 card.addEventListener('pointerup',()=>{if(dragged){suppress=true;setTimeout(()=>suppress=false,250);}release();});
 card.addEventListener('pointercancel',release);
 card.addEventListener('lostpointercapture',release);
-card.addEventListener('click',e=>{if(suppress||dragged){e.preventDefault();dragged=false;return;}card.classList.toggle('flipped');});
+card.addEventListener('click',e=>{if(suppress||dragged){e.preventDefault();dragged=false;return;}card.classList.toggle('flipped');flipImpulse=card.classList.contains('flipped')?35:-35;if(!raf)raf=requestAnimationFrame(tick);});
 window.addEventListener('resize',renderLanyard,{passive:true});
 renderLanyard();
 
